@@ -1,0 +1,17 @@
+== Конкурентное программирование
+
+=== Go-рутины
+
+=== Конкурентный доступ к памяти
+
+atomic, mutex, Map
+
+=== CSP (Communicating sequential processes)
+
+=== Ожидание завершения
+
+WaitGroup, ErrGroup
+
+=== Прерывание пула go-рутин
+
+Context
