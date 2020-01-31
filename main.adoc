@@ -8,10 +8,17 @@ v0.1, 2020-01-31
 В курсе рассматриваются базовые концепции языка Go, а также основы конкурентного программирования.
 
 include::01-basics.adoc[]
+
 include::02-memory.adoc[]
+
 include::03-tests.adoc[]
+
 include::04-oop.adoc[]
+
 include::05-modules.adoc[]
+
 include::06-concurrent.adoc[]
+
 include::98-extras.adoc[]
+
 include::99-references.adoc[]
