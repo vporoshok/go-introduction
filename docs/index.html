@@ -418,6 +418,77 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
 </head>
 <body class="article">
 <div id="header">
@@ -425,7 +496,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Бастрыков Евгений</span><br>
 <span id="email" class="email"><a href="mailto:vporoshok@gmail.com">vporoshok@gmail.com</a></span><br>
-<span id="revnumber">version 0.1,</span>
+<span id="revnumber">version 0.1.0,</span>
 <span id="revdate">2020-01-31</span>
 </div>
 <div id="toc" class="toc">
@@ -494,6 +565,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_рефлексия">Рефлексия</a></li>
 <li><a href="#_различные_подходы_к_тестированию">Различные подходы к тестированию</a></li>
 <li><a href="#_генерация_кода">Генерация кода</a></li>
+<li><a href="#_makefile_для_go_проектов">Makefile для Go-проектов</a></li>
+<li><a href="#_линтеры_и_другие_инструменты">Линтеры и другие инструменты</a></li>
 </ul>
 </li>
 <li><a href="#_литература_и_ссылки">Литература и ссылки</a></li>
@@ -504,16 +577,106 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>В курсе рассматриваются базовые концепции языка Go, а также основы конкурентного программирования.</p>
+<p>В курсе рассматриваются базовые концепции языка Go, а также основы конкурентного программирования. Язык Go прост в изучении и при этом имеет широкие возможности для оптимизации программ, написанных на нём. В курсе также рассматриваются вопросы, не относящиеся напрямую к изучению языка, но касающиеся применения этого языка в работе или домашних проектах: соглашения по организации кода, версионирование модулей, тестирование кода и многое другое. Также курс содержит указания на материалы для факультативного изучения с более продвинутыми темами, такими как различные подходы к обработке ошибок, рефлексия, генерация кода.</p>
+</div>
+<div class="paragraph">
+<p>Для работы с курсом вам понадобится установленный компилятор языка Go, который можно установить, воспользовавшись инструкциями на официальном сайте <a href="https://golang.org/" class="bare">https://golang.org/</a>. Также необходимо умение пользоваться командной строкой. Данный учебный материал выложен в открытом доступе под лицензией <a href="https://github.com/vporoshok/go-introduction/blob/master/LICENSE">MIT</a>. Исходный код находится по адресу <a href="https://github.com/vporoshok/go-introduction" class="bare">https://github.com/vporoshok/go-introduction</a>, версия для чтения — <a href="https://vporoshok.me/go-introduction/" class="bare">https://vporoshok.me/go-introduction/</a>. Если вы нашли ошибку, опечатку или неточность, откройте задачу или Pull Request в репозитории или свяжитесь со мной с помощью электронной почты <a href="mailto:vporoshok@gmail.com">vporoshok@gmail.com</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_базовый_синтаксис">Базовый синтаксис</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Начнём с избитой фразы: «Go является статически компилируемым в машинный код языком с сильной статической типизацией». А теперь давайте по порядку разбираться, что же всё это означает. Если вам и так всё понятно, смело переходите параграфу <a href="#_hello_world">Hello, World!</a>.</p>
+</div>
+<div class="paragraph">
+<p>Вообще компьютер умеет работать только с так называемым машинным кодом, то есть инструкциями для центрального процессора, закодированных в понятные этому процессору коды. При этом одна инструкция языка, например, <code>print("Hello, World")</code> разворачивается в несколько инструкций для процессора. Программа, на каком бы языке она ни была написана в итоге должна превратиться в инструкции, понятные процессору. Но пути этого превращения различны. Языки могут быть <em>компилируемые</em> и <em>интерпретируемые</em>. У компилируемых языков этап превращения исходного кода в инструкции процессора, называемый <em>компиляцией</em>, отделён от этапа исполнения этих инструкций. В интерпретируемых языках это преобразование делается непосредственно перед исполнением. Стоит отметить, что в Go есть сокращённая форма для компиляции и запуска: <code>go run main.go</code>, выглядящая со стороны как запуск интерпретатора.</p>
+</div>
+<div class="paragraph">
+<p>С другой стороны даже процесс компиляции может быть разделён на различные этапы. Так есть языки с <em>виртуальными машинами</em>, такие как Java, Erlang, JavaScript и многие другие. Программы, написанные на этих языках компилируются в инструкции виртуального процессора, который эмулируется соответствующей виртуальной машиной, которая на своём уровне преобразует эти инструкции в понятные физическому процессору. То есть вводится промежуточное представление программы, не зависящее от архитектуры конечного компьютера. С другой стороны промежуточное представление программы может быть и без виртуальной машины, например, многие языки используют промежуточное LLVM-представление.</p>
+</div>
+<div class="paragraph">
+<p>В случае интерпретируемых языков для запуска необходим интерпретатор и все зависимости. Артефакты же компиляции могут быть <em>динамическими</em> или <em>статическими</em>. Статический исполняемый файл содержит все свои зависимости в себе и не требует установки дополнительных пакетов или библиотек на компьютер, где будет исполняться. С другой стороны динамические ссылки в исполняемом файле дают большую гибкость в настройке уже во время исполнения, позволяя подменять части программы динамически подключаемыми библиотеками.</p>
+</div>
+<div class="paragraph">
+<p>Осталась последняя часть фразы: <em>сильная статическая типизация</em>. В любом языке программирования есть типы, как бы от вас это не скрывалось его синтаксисом, при этом указание типов никак не связано с тем является ли система типов языка сильной или слабой, статической или динамической. <em>Сильной</em> системой типов (иногда её также называют строгой) делает ограничение на взаимодействие между типами, например, нельзя сложить строку и число, а в Go нельзя умножить целое число на дробное. Однако, можно выполнить приведение типа:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kt">int</span> <span class="tok-p">=</span> <span class="tok-mi">12</span>
+<span class="tok-kd">var</span> <span class="tok-nx">y</span> <span class="tok-kt">float64</span> <span class="tok-p">=</span> <span class="tok-mf">2.2</span>
+
+<span class="tok-kd">var</span> <span class="tok-nx">res</span> <span class="tok-kt">float64</span> <span class="tok-p">=</span> <span class="tok-nb">float64</span><span class="tok-p">(</span><span class="tok-nx">x</span><span class="tok-p">)</span> <span class="tok-o">+</span> <span class="tok-nx">y</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Также как и с компиляцией, преобразование типов операндов производится в любом языке, но в слабо типизированных языках есть набор правил, по которым компилятор или интерпретатор может выполнить часть преобразований без явных инструкций со стороны программиста. Несмотря на то, что это похоже на то, как мы думаем, ведь написанное на бумаге «426» мы без труда интерпретируем и как строку и как число, хоть целое, хоть вещественное, часто такие неявные правила приводят к трудно обнаружимым ошибкам ошибкам.</p>
+</div>
+<div class="paragraph">
+<p><em>Динамическая</em> и <em>статическая</em> типизация также различается ограничениями, так при статической типизации тип приписывается переменной один раз и не может быть изменён. Например, следующий код допустим в Python (сильная динамическая типизация), но не допустим в Go:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="python"><span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;foo&quot;</span>
+<span class="tok-n">x</span> <span class="tok-o">=</span> <span class="tok-mi">5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Все приведённые выше развилки имеют достоинства и недостатки с обоих сторон. Нельзя сказать, что компилируемые языки лучше или хуже интерпретируемых. Для некоторых задач что-то больше подходит, что-то меньше. Из своего опыта могу лишь сказать, что в долгосрочной перспективе компиляция и строгая статическая типизация помогают уберечься от глупых ошибок, хоть по началу и требуют больше времени для написания кода.</p>
+</div>
 <div class="sect2">
 <h3 id="_hello_world">Hello, World!</h3>
+<div class="paragraph">
+<p>Продолжим следовать избитым клише и первой программой будет «Привет, Мир!». Создайте файл с именем <code>hello_world.go</code> со следующим содержимым:</p>
+</div>
+<div class="listingblock">
+<div class="title">hello_world.go</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7</div></td><td class="code"><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
 
+<span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;Hello, World!&quot;</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Теперь, если выполнить в командной строке (в директории с файлом <code>hello_world.go</code>) команду</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>go run hello_world.go</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>вы должны увидеть вывод нашей программы:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Hello, World!</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Все примеры, используемые в данном курсе, можно найти в директории examples в репозитории проекта <a href="https://github.com/vporoshok/go-introduction" class="bare">https://github.com/vporoshok/go-introduction</a>.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_переменные">Переменные</h3>
@@ -708,6 +871,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_генерация_кода">Генерация кода</h3>
 
 </div>
+<div class="sect2">
+<h3 id="_makefile_для_go_проектов">Makefile для Go-проектов</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_линтеры_и_другие_инструменты">Линтеры и другие инструменты</h3>
+
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -726,8 +897,8 @@ From Journeyman to Master. Addison-Wesley. 1999.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.1<br>
-Last updated 2020-01-31 18:28:49 +04
+Version 0.1.0<br>
+Last updated 2020-02-03 12:27:30 +04
 </div>
 </div>
 </body>
