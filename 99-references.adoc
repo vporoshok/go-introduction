@@ -1,5 +1,5 @@
 [bibliography]
 == Литература и ссылки
 
-- [[[pp]]] Andy Hunt & Dave Thomas. The Pragmatic Programmer:
-  From Journeyman to Master. Addison-Wesley. 1999.
+- [[[cc]]] Роберт Мартин. _Чистый код. Создание, анализ и рефакторинг._
+  Питер, 2018.

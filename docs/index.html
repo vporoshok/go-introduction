@@ -700,11 +700,453 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_переменные">Переменные</h3>
+<div class="paragraph">
+<p>Переменные можно объявлять следующим способом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kt">int</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это создаст переменную с именем <code>x</code> типа <code>int</code> (то есть целое знаковое число). Эта переменная будет сразу же инициализирована пустым значением, соответствующим этому типу (в данном случае 0). Можно задать другое значение для инициализации:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kt">int</span> <span class="tok-p">=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Эта строка будет аналогична строкам:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kt">int</span>
+<span class="tok-nx">x</span> <span class="tok-p">=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Более того в данном случае компилятор может сам определить тип по константе справа, так что запись можно сократить до</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-p">=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для таких случаев в Go предусмотренна короткая запись, эквивалентная написанной выше:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Операция <code>:=</code> объявляет и инициализирует переменную слева от себя значением правой части. В Go запрещено дважды объявлять переменную, поэтому последующие присвоения необходимо делать с помощью оператора <code>=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Также как обычное присвоение <code>=</code> операция объявления может сопоставлять кортежи:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">y</span><span class="tok-p">,</span> <span class="tok-nx">s</span> <span class="tok-o">:=</span> <span class="tok-mi">17</span><span class="tok-p">,</span> <span class="tok-mf">19.5</span><span class="tok-p">,</span> <span class="tok-s">&quot;hello&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В результате будут объявлены три переменные</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>x</code> типа <code>int</code> со значением 17;</p>
+</li>
+<li>
+<p><code>y</code> типа <code>float64</code> со значением 19.5;</p>
+</li>
+<li>
+<p><code>s</code> типа <code>string</code> со значением "hello";</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Особенностью такого объявления является то, что в левой части могут быть уже объявленные переменные (кроме первой):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">s</span> <span class="tok-kt">string</span>
+<span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">y</span><span class="tok-p">,</span> <span class="tok-nx">s</span> <span class="tok-o">:=</span> <span class="tok-mi">17</span><span class="tok-p">,</span> <span class="tok-mf">19.5</span><span class="tok-p">,</span> <span class="tok-s">&quot;hello&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном случае переменные <code>x</code> и <code>y</code> будут объявлены во второй строке, а переменной <code>s</code> просто будет присвоено значение, то есть этот код эквивалентен следующему:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">s</span> <span class="tok-kt">string</span>
+<span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-mi">17</span>
+<span class="tok-nx">y</span> <span class="tok-o">:=</span> <span class="tok-mf">19.5</span>
+<span class="tok-nx">s</span> <span class="tok-p">=</span> <span class="tok-s">&quot;hello&quot;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_скалярные_типы_данных">Скалярные типы данных</h4>
+<div class="paragraph">
+<p>Будем называть тип данных <em>скалярным</em>, если значение этого типа нельзя модифицировать, можно лишь присвоить новое значение. То есть мы не можем изменить число, но можем присвоить переменной, содержащей число новое значение. Понятнее это определение станет в <a href="#_сложные_типы_данных">следующей части</a>. Пока же перечислим базовые скалярные типы данных:</p>
+</div>
+<div class="paragraph">
+<p>Числа <code>int8</code>, <code>int16</code>, <code>int32</code>, <code>int64</code>, <code>uint8</code>, <code>unit16</code>, <code>uint32</code>, <code>uint64</code>, <code>float32</code>, <code>float64</code>. Как видно все типы имеют в названии размер, занимаемой памяти в битах. Для всех чисел пустое значение — 0. Также любой числовой тип можно привести к любому другому числовому типу, использовав тип как функцию:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kt">int32</span>
+<span class="tok-nx">y</span> <span class="tok-o">:=</span> <span class="tok-mf">19.5</span>
+<span class="tok-nx">x</span> <span class="tok-p">=</span> <span class="tok-nb">int32</span><span class="tok-p">(</span><span class="tok-nx">y</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Есть также типы алиасы к числовым типам. Например, тип <code>byte</code> является тем же типом <code>int8</code>, а <code>rune</code> — <code>int32</code>. Но есть и менее предсказуемые типы <code>int</code> и <code>uint</code>, являющиеся алиасами к типам <code>int32</code> и <code>uint32</code> или <code>int64</code> и <code>uint64</code> соответственно в зависимости от битности операционной системы, на которой выполняется программа.</p>
+</div>
+<div class="paragraph">
+<p>Булевый тип <code>bool</code> может принимать значение <code>true</code> или <code>false</code>, последнее является пустым значением для этого типа.</p>
+</div>
+<div class="paragraph">
+<p>И, наконец, скалярным типом в Go является строка (тип <code>string</code>). Вообще говоря строка представляет из себя срез (<code>slice</code>), о которых мы будем говорить позже. Но компилятор не позволяет модифицировать отдельные символы строки, так что она подходит под определение скалярного типа. Пустым значением для переменных типа строка является пустая строка. Для объявления строковых констант можно использовать либо двойные кавычки (<code>"</code>), либо обратные кавычки (<code>`</code>), при этом в первых можно использовать специальные символы, такие как <code>\n</code>, <code>\t</code> и так далее, а в обратных кавычках можно использовать непосредственно переносы строк. То есть следующие две константы равны:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">s1</span> <span class="tok-o">:=</span> <span class="tok-s">&quot;foo\nbar&quot;</span>
+<span class="tok-nx">s2</span> <span class="tok-o">:=</span> <span class="tok-s">`foo</span>
+<span class="tok-s">bar`</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_область_видимости">Область видимости</h4>
+<div class="paragraph">
+<p>Областью видимости переменной называется область кода, где доступно значение этой переменной. Всегда есть глобальная область видимости пакета, туда попадают константы, функции, типы и переменные, объявленные вне функций. Глобальную переменную можно объявить только с использованием ключевого слова <code>var</code>. То есть можно написать</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-p">=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>но нельзя использовать оператор <code>:=</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-mi">17</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Более узкую область видимости определяют функции. В теле функции доступны переменные, объявленные в глобальной области, а также переменные, объявленные в этом же теле функции выше. При этом локальные переменные могут перекрывать внешние, то есть следующий код</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">s</span> <span class="tok-p">=</span> <span class="tok-s">&quot;foo&quot;</span>
 
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-kd">var</span> <span class="tok-nx">s</span> <span class="tok-p">=</span> <span class="tok-s">&quot;bar&quot;</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">s</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Выведет строку <code>"bar"</code>, при этом значение глобальной переменной останется прежним. Некоторые особенности области видимости функций подробнее будут рассмотрены в <a href="#_функции">соответствующем параграфе</a>.</p>
+</div>
+<div class="paragraph">
+<p>Помимо функций, вложенные области видимости задают все конструкции, управляющие потоком выполнения.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_управление_потоком_выполнения">Управление потоком выполнения</h3>
-
+<div class="paragraph">
+<p>Для управления потоком выполнения в Go предусмотренны следующие конструкции:</p>
+</div>
+<div class="sect3">
+<h4 id="_условия">Условия</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">if</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">1</span><span class="tok-p">&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">1</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-k">if</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">2</span><span class="tok-p">&gt;</span> <span class="tok-p">{</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">2</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">3</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если выполнено условие <code>&lt;condition 1&gt;</code>, то будут выполнены инструкции, перечисленные в <code>&lt;body 1&gt;</code>, если не выполнено условие <code>&lt;condition 1&gt;</code>, но выполнено условие <code>&lt;condition 2&gt;</code>, то будут выполнены инструкции из <code>&lt;body 2&gt;</code>, наконец, если ни одно условие не выполнено, то будут выполнены инструкции из блока <code>else</code> (<code>&lt;body 3&gt;</code>). Блоков <code>else if</code> может быть сколько угодно от 0 и до бесконечности. Блок <code>else</code> может быть пропущен.</p>
+</div>
+<div class="paragraph">
+<p>В качестве условий можгут быть использованы любые выражения, результатом которых имеет тип <code>bool</code>, например:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">if</span> <span class="tok-nx">x</span> <span class="tok-p">&lt;</span> <span class="tok-mi">0</span> <span class="tok-o">||</span> <span class="tok-nx">x</span> <span class="tok-p">&gt;</span> <span class="tok-mi">100</span> <span class="tok-p">{</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;Неверно задано значение x&quot;</span><span class="tok-p">)</span>
+<span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-k">if</span> <span class="tok-nx">x</span> <span class="tok-o">==</span> <span class="tok-mi">0</span> <span class="tok-p">{</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;x равен нулю&quot;</span><span class="tok-p">)</span>
+<span class="tok-p">}</span> <span class="tok-k">else</span> <span class="tok-p">{</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;x равен&quot;</span><span class="tok-p">,</span> <span class="tok-nx">x</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Вообще некоторые считают плохим тоном использование ключевого слова <code>else</code>, предпочитая делать ранний выход из функции. Это не особо относится к изучению синтаксиса языка, но может качественно сказаться на читаемости вашего кода. В любом случае рекомендуем прочитать книгу «Чистый код»<a href="#cc">[cc]</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>В Go есть особая форма конструкции <code>if</code>, позволяющая выполнить инструкцию прямо внутри условия. Для примера рассмотрим следующую задачу: дана хеш таблица <code>m</code>, необходимо проверить наличие в ней ключа, если ключ есть, то вернуть значение по этому ключу, иначе вернуть <code>defaultValue</code> (аналог метода <code>get</code> словарей в Python). Подробнее о хеш-таблицах мы поговорим в <a href="#_хеш_таблицы">соответствующем разделе</a>, здесь отметим лишь то, что при получении значения по ключу из хеш-таблицы можно использовать синтаксис</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">m</span><span class="tok-p">[</span><span class="tok-nx">key</span><span class="tok-p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Тогда, если ключ есть в хеш-таблице, то <code>val</code> будет присвоено значение, хранящееся по этому ключу, а в <code>ok</code> будет записано <code>true</code>. Если же ключ не найден, то <code>val</code> будет присвоено пустое значение, соответствующее типу значений хеш-таблицы, а в <code>ok</code> будет записано <code>false</code>.</p>
+</div>
+<div class="paragraph">
+<p>Таким образом, задачу можно решить следующим способом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">m</span><span class="tok-p">[</span><span class="tok-nx">key</span><span class="tok-p">]</span>
+<span class="tok-k">if</span> <span class="tok-nx">ok</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">val</span>
+<span class="tok-p">}</span>
+<span class="tok-k">return</span> <span class="tok-nx">defaultValue</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Но в Go можно объединить первые две строки:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">if</span> <span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">m</span><span class="tok-p">[</span><span class="tok-nx">key</span><span class="tok-p">];</span> <span class="tok-nx">ok</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">val</span>
+<span class="tok-p">}</span>
+<span class="tok-k">return</span> <span class="tok-nx">defaultValue</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это особенно удобно потому, что во втором случае область видимости переменных <code>val</code> и <code>ok</code> будет ограничена условием, в первом же случае они оказываются объявлены за пределами условия.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_switch">Switch</h4>
+<div class="paragraph">
+<p>Для сопоставления значения выражения возможным значениям можно использовать оператор <code>switch</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">switch</span> <span class="tok-p">&lt;</span><span class="tok-nx">expression</span><span class="tok-p">&gt;</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">value</span> <span class="tok-mi">1</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">1</span><span class="tok-p">&gt;</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">value</span> <span class="tok-mi">2</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">2</span><span class="tok-p">&gt;</span>
+<span class="tok-k">default</span><span class="tok-p">:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">3</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если значение выражение совпадёт с одним из значений, будет выполнен соответствующий блок. При этом, если выражение совпадёт с несколькими значениями, будет выполнен только блок, соответствующий первому совпадению. Если значение выражения не совпадёт ни с одним из перечисленных значений, то будет выполнен блок <code>default</code>, которого может не быть.</p>
+</div>
+<div class="paragraph">
+<p>Знакомые с такими языками как Си или JavaScript могут удивиться отсутствию ключевых слов <code>break</code> в конце блоков. В Go поведение по умолчанию противоположно поведению этих языков. По умолчанию выполняется только один блок. Если необходимо выполнить также и следующий блок, необходимо использовать ключевое слово <code>fallthrough</code>. Например,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">switch</span> <span class="tok-nx">command</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-s">&quot;save and continue&quot;</span><span class="tok-p">:</span>
+    <span class="tok-nx">save</span><span class="tok-p">()</span>
+    <span class="tok-k">fallthrough</span>
+<span class="tok-k">case</span> <span class="tok-s">&quot;continue&quot;</span><span class="tok-p">:</span>
+    <span class="tok-nx">next</span><span class="tok-p">()</span>
+<span class="tok-k">default</span><span class="tok-p">:</span>
+    <span class="tok-nx">save</span><span class="tok-p">()</span>
+    <span class="tok-nx">stop</span><span class="tok-p">()</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном примере, если значение переменной <code>command</code> равно строке <code>"continue"</code>, то будет выполнена только функция <code>next</code>, если значение равно <code>"save and continue"</code>, то будет выполнена функция <code>save</code>, после чего будет выполнена следующая ветка, то есть <code>"continue"</code>, состоящая из вызова функции <code>next</code>. При любой другой команде будет выполнен блок <code>default</code>.</p>
+</div>
+<div class="paragraph">
+<p>Если для нескольких значений необходимо выполнить одну и ту же последовательность инструкций, то можно записать это следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">switch</span> <span class="tok-nx">command</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-s">&quot;save and continue&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;save and next&quot;</span><span class="tok-p">:</span>
+    <span class="tok-nx">save</span><span class="tok-p">()</span>
+    <span class="tok-k">fallthrough</span>
+<span class="tok-k">case</span> <span class="tok-s">&quot;continue&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;next&quot;</span><span class="tok-p">:</span>
+    <span class="tok-nx">next</span><span class="tok-p">()</span>
+<span class="tok-k">default</span><span class="tok-p">:</span>
+    <span class="tok-nx">save</span><span class="tok-p">()</span>
+    <span class="tok-nx">stop</span><span class="tok-p">()</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Часто конструкцию из множественных блоков <code>else if</code> переписывают в виде:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">switch</span> <span class="tok-kc">true</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">1</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">1</span><span class="tok-p">&gt;</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">2</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">2</span><span class="tok-p">&gt;</span>
+<span class="tok-k">default</span><span class="tok-p">:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">3</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В Go в такой конструкции можно опустить выражение <code>true</code> вообще:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">switch</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">1</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">1</span><span class="tok-p">&gt;</span>
+<span class="tok-k">case</span> <span class="tok-p">&lt;</span><span class="tok-nx">condition</span> <span class="tok-mi">2</span><span class="tok-p">&gt;:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">2</span><span class="tok-p">&gt;</span>
+<span class="tok-k">default</span><span class="tok-p">:</span>
+    <span class="tok-p">&lt;</span><span class="tok-nx">body</span> <span class="tok-mi">3</span><span class="tok-p">&gt;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+В отличии от других языков в Go использование констуркции <code>switch</code> не является анти-паттерном, однако длинных и, тем более, повторяющихся <code>switch</code>-ей стоит избегать, используя полиморфизм или хеш-таблицы.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_циклы">Циклы</h4>
+<div class="paragraph">
+<p>Одной из «фишек» Go является минимизация ключевых слов языка. Именно поэтому все циклы в нём определяются одним ключевым словом <code>for</code>. Но имеются следующие виды циклов:</p>
+</div>
+<div class="paragraph">
+<p><strong>Классический Си-подобный</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">10</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Здесь перед входом в цикл выполняется первая инструкция (<code>i := 0</code>), перед каждой итерацией цикла, в том числе и первой проверяется условие (<code>i &lt; 10</code>) и, если условие выполнено, то выполняется тело цикла, после чего выполняется вторая инструкция (<code>i++</code>), если же условие не выполнено, то цикл завершается и программа переходит к следующим инструкциям. Инструкции и условия могут быть более сложными, например</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">a</span><span class="tok-p">,</span> <span class="tok-nx">b</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">100</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">a</span><span class="tok-p">,</span> <span class="tok-nx">b</span> <span class="tok-p">=</span> <span class="tok-nx">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-nx">b</span><span class="tok-p">,</span> <span class="tok-nx">a</span><span class="tok-o">+</span><span class="tok-nx">b</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Аналог цикла <code>while</code></strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-nx">x</span> <span class="tok-p">&lt;</span> <span class="tok-nx">y</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>По сути этот цикл можно написать как частный случай предыдущего, где обе инструкции пустые:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-nx">x</span> <span class="tok-p">&lt;</span> <span class="tok-nx">y</span><span class="tok-p">;</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Но Go повзоляет в этом случае не писать лишние точки с запятыми.</p>
+</div>
+<div class="paragraph">
+<p><strong>Итерирование</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это особый вид цикла, где после ключевого слова <code>range</code> может стоять выражение, результатом которого является строка, массив, срез, хеш-таблица или канал. Принцип действия для строк, массивов и срезов похож: для всех элементов этих объектов будет выполнено тело цикла, а переменная <code>i</code> будет принимать последовательно значения от 0 до длинны объекта без единицы, а <code>x</code> — значения хранящиеся в данном объекте по индексу <code>i</code>. Более подробно действие циклов такого типа будет рассмотренно в разделах, посвящённых <a href="#_срезы">срезам</a>, <a href="#_хеш_таблицы">хеш-таблицам</a> и <a href="#_каналы">каналам</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Бесконечный цикл</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// body</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Наконец, цикл с пустым условием аналогичен циклу с всегда истинным условием. Для выхода из такого цикла необходимо воспользоваться ключевыми словами <code>break</code> или <code>return</code>.</p>
+</div>
+<div class="paragraph">
+<p>Также как и в других языках, в Go есть ключевые слова <code>continue</code> и <code>break</code>. Первое позволяет преждевременно завершить текущую итерцию цикла и перейти к следующей, например:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">sumOfPrimes</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span>
+<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">100</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-p">!</span><span class="tok-nx">isPrime</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+        <span class="tok-k">continue</span>
+    <span class="tok-p">}</span>
+    <span class="tok-nx">sumOfPrimes</span> <span class="tok-o">+=</span> <span class="tok-nx">i</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>С помощью ключевого слова <code>break</code> можно прекратить выполнение цикла. Однако, надо помнить, что это ключевое слово используется не только для прерывания цикла, но и для прерывания рассмотренной конструкции <code>switch</code> и конструкции из следующей главы <code>select</code>. Например, следующий код выведет все числа от 0 до 9:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">100</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+    <span class="tok-k">switch</span> <span class="tok-nx">i</span> <span class="tok-p">{</span>
+    <span class="tok-k">case</span> <span class="tok-mi">5</span><span class="tok-p">:</span>
+        <span class="tok-k">break</span>
+    <span class="tok-p">}</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_функции">Функции</h3>
@@ -911,8 +1353,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><a id="pp"></a>[pp] Andy Hunt &amp; Dave Thomas. The Pragmatic Programmer:
-From Journeyman to Master. Addison-Wesley. 1999.</p>
+<p><a id="cc"></a>[cc] Роберт Мартин. <em>Чистый код. Создание, анализ и рефакторинг.</em>
+Питер, 2018.</p>
 </li>
 </ul>
 </div>
@@ -922,8 +1364,24 @@ From Journeyman to Master. Addison-Wesley. 1999.</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.1.0<br>
-Last updated 2020-02-03 12:27:30 +04
+Last updated 2020-02-03 15:25:03 +04
 </div>
 </div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>

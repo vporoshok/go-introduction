@@ -3,6 +3,7 @@
 v0.1.0, 2020-01-31
 :toc:
 :source-highlighter: pygments
+:stem: latexmath
 :imagedir: assets/images
 :github: https://github.com/vporoshok/go-introduction
 :homepage: https://vporoshok.me/go-introduction/
