@@ -629,10 +629,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_hello_world">Hello, World!</h3>
 <div class="paragraph">
-<p>Продолжим следовать избитым клише и первой программой будет «Привет, Мир!». Создайте файл с именем <code>hello_world.go</code> со следующим содержимым:</p>
+<p>Продолжим следовать избитым клише и первой программой будет «Привет, Мир!». Создайте файл с именем <code>main.go</code> со следующим содержимым:</p>
 </div>
 <div class="listingblock">
-<div class="title">hello_world.go</div>
+<div class="title">hello_world/main.go</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
 2
@@ -651,11 +651,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Теперь, если выполнить в командной строке (в директории с файлом <code>hello_world.go</code>) команду</p>
+<p>Теперь, если выполнить в командной строке (в директории с файлом <code>main.go</code>) команду</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>go run hello_world.go</pre>
+<pre>go run main.go</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -709,7 +709,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Это создаст переменную с именем <code>x</code> типа <code>int</code> (то есть целое знаковое число). Эта переменная будет сразу же инициализирована пустым значением, соответствующим этому типу (в данном случае 0). Можно задать другое значение для инициализации:</p>
+<p>Это создаст переменную с именем <code>x</code> типа <code>int</code> (то есть целое знаковое число). Эту строку можно прочитать как: «пусть <code>x</code> — переменная типа <code>int</code>». Если необходимо объявить несколько переменных, то можно сгруппировать определения с помощью скобок:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-p">(</span>
+    <span class="tok-nx">x</span> <span class="tok-kt">int</span>
+    <span class="tok-nx">s</span> <span class="tok-kt">string</span>
+<span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>а в случае, когда необходимо определить несколько переменных одного типа, то их можно сгруппировать следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">y</span><span class="tok-p">,</span> <span class="tok-nx">z</span> <span class="tok-kt">int</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Переменные будут сразу же инициализирована пустыми значением, соответствующими их типам (в данном случае 0). Можно задать другое значение для инициализации:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -804,10 +823,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
+<p>С числами можно производить следующие бинарные арифметические операции: сложение (<code>+</code>), вычитание (<code>-</code>), умножение (<code>*</code>), деление (<code>/</code>), а для целых чисел также доступна операция деления по модулю (<code>%</code>). Кроме того для знаковых типов можно инвертировать знак с помощью приписывания к числу слева знака <code>-</code>. Для всех бинарных операций есть краткая форма записи в случае, если результат необходимо присвоить переменной, являющейся первым операндом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">x</span> <span class="tok-o">+=</span> <span class="tok-mi">2</span> <span class="tok-c1">// эквивалентно x = x + 2</span>
+<span class="tok-nx">x</span> <span class="tok-o">%=</span> <span class="tok-mi">3</span> <span class="tok-c1">// эквивалентно x = x % 3</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Также существуют операции инкрементирования и декрементирования:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">x</span><span class="tok-o">++</span> <span class="tok-c1">// эквивалентно x += 1</span>
+<span class="tok-nx">x</span><span class="tok-o">--</span> <span class="tok-c1">// эквивалентно x -= 1</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Операция присваивания в Go не имеет собственного результата, поэтому нельзя использовать присваивание как часть другой инструкции. Это же относится и к сокращённым формам бинарных операций.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
 <p>Есть также типы алиасы к числовым типам. Например, тип <code>byte</code> является тем же типом <code>int8</code>, а <code>rune</code> — <code>int32</code>. Но есть и менее предсказуемые типы <code>int</code> и <code>uint</code>, являющиеся алиасами к типам <code>int32</code> и <code>uint32</code> или <code>int64</code> и <code>uint64</code> соответственно в зависимости от битности операционной системы, на которой выполняется программа.</p>
 </div>
 <div class="paragraph">
-<p>Булевый тип <code>bool</code> может принимать значение <code>true</code> или <code>false</code>, последнее является пустым значением для этого типа.</p>
+<p>Булевый тип <code>bool</code> может принимать значение <code>true</code> или <code>false</code>, последнее является пустым значением для этого типа. Для булевых переменных и констант доступны следующие операции: инверсия (<code>!</code>), логическое <strong>и</strong> (<code>&amp;&amp;</code>) и логическое <strong>или</strong> (<code>||</code>).</p>
 </div>
 <div class="paragraph">
 <p>И, наконец, скалярным типом в Go является строка (тип <code>string</code>). Вообще говоря строка представляет из себя срез (<code>slice</code>), о которых мы будем говорить позже. Но компилятор не позволяет модифицировать отдельные символы строки, так что она подходит под определение скалярного типа. Пустым значением для переменных типа строка является пустая строка. Для объявления строковых констант можно использовать либо двойные кавычки (<code>"</code>), либо обратные кавычки (<code>`</code>), при этом в первых можно использовать специальные символы, такие как <code>\n</code>, <code>\t</code> и так далее, а в обратных кавычках можно использовать непосредственно переносы строк. То есть следующие две константы равны:</p>
@@ -817,6 +866,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">s1</span> <span class="tok-o">:=</span> <span class="tok-s">&quot;foo\nbar&quot;</span>
 <span class="tok-nx">s2</span> <span class="tok-o">:=</span> <span class="tok-s">`foo</span>
 <span class="tok-s">bar`</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Строки можно складывать (конкатенировать), используя операцию <code>+</code>. А также можно использовать <a href="#_срезы">синтаксис срезов</a> для получения подстроки:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;Hello, World!&quot;</span><span class="tok-p">[</span><span class="tok-mi">3</span><span class="tok-p">:</span><span class="tok-mi">5</span><span class="tok-p">]</span> <span class="tok-o">+</span> <span class="tok-s">&quot;l&quot;</span><span class="tok-p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1150,7 +1207,131 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_функции">Функции</h3>
+<div class="paragraph">
+<p>Функции являются первым инструментом декомпозиции кода, разделения задачи на самодостаточные изолированные части. Подробнее о том как применять функции для решения задач обсудим в <a href="#_задача_вычисление_квадратного_корня_методом_ньютона">практической части этого раздела</a>, а пока сосредоточимся на синтаксисе. Определение функции всегда начинается с ключевого слова <code>func</code>, после чего возможно несколько вариантов:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>именованная функция уровня пакета;</p>
+</li>
+<li>
+<p>анонимная функция;</p>
+</li>
+<li>
+<p>метод (в данном разделе мы пропустим этот вариант и вернёмся к нему в <a href="#_ооп_в_go">разделе, посвящённом ООП и методам</a>);</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Определение именованной функции уровня пакета мы с вами уже встречали:</p>
+</div>
+<div class="listingblock">
+<div class="title">hello_world/main.go</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><table class="pyhltable"><tr><td class="linenos"><div class="linenodiv">1
+2
+3
+4
+5
+6
+7</div></td><td class="code"><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
 
+<span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;Hello, World!&quot;</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+</td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном примере функция не принимает аргументов и ничего не возвращает. Для более полного описания синтаксиса рассмотрим ещё несколько примеров:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-c1">// Вычисление квадрата числа</span>
+<span class="tok-kd">func</span> <span class="tok-nx">square</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">float64</span><span class="tok-p">)</span> <span class="tok-kt">float64</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">*</span> <span class="tok-nx">x</span>
+<span class="tok-p">}</span>
+
+<span class="tok-c1">// Сумма чисел</span>
+<span class="tok-kd">func</span> <span class="tok-nx">sum</span><span class="tok-p">(</span><span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">y</span> <span class="tok-kt">float64</span><span class="tok-p">)</span> <span class="tok-kt">float64</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">+</span> <span class="tok-nx">y</span>
+<span class="tok-p">}</span>
+
+<span class="tok-c1">// Выравнивание строки по правому краю по заданной длинне</span>
+<span class="tok-kd">func</span> <span class="tok-nx">leftPad</span><span class="tok-p">(</span><span class="tok-nx">s</span> <span class="tok-kt">string</span><span class="tok-p">,</span> <span class="tok-nx">n</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">string</span> <span class="tok-p">{</span>
+    <span class="tok-nx">pad</span> <span class="tok-o">:=</span> <span class="tok-s">&quot;&quot;</span>
+    <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">s</span><span class="tok-p">);</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nx">n</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+        <span class="tok-nx">pad</span> <span class="tok-o">+=</span> <span class="tok-s">&quot; &quot;</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">pad</span> <span class="tok-o">+</span> <span class="tok-nx">s</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Перечисление аргументов функции очень похоже на определение переменных с помощью ключевого слова <code>var</code>, но в отличии от определения переменных, аргументам нельзя присваивать значение для инициализации, потому что при вызове функции необходимо передать все аргументы.</p>
+</div>
+<div class="paragraph">
+<p>Функции могут возращать не одно значение, а кортеж. В качестве примера возьмём функцию, которая принимает два аргумента и возвращает их в обратном порядке:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">swap</span><span class="tok-p">(</span><span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">y</span> <span class="tok-kt">float64</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-kt">float64</span><span class="tok-p">,</span> <span class="tok-kt">float64</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">y</span><span class="tok-p">,</span> <span class="tok-nx">x</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Типы результатов могут быть разными, а также можно именовать результаты, превращая их в объявление переменных. Это особенно удобно, когда не очевидно назначение результатов. При этом если использовать ключевое слово <code>return</code> без дополнительных аргументов, то будет возвращёны значения именованных результатов:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">stripLeftSpaces</span><span class="tok-p">(</span><span class="tok-nx">s</span> <span class="tok-kt">string</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nx">result</span> <span class="tok-kt">string</span><span class="tok-p">,</span> <span class="tok-nx">trimmedSpaceCount</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-nx">result</span> <span class="tok-o">:=</span> <span class="tok-nx">s</span>
+    <span class="tok-k">for</span> <span class="tok-nx">result</span> <span class="tok-o">!=</span> <span class="tok-s">&quot;&quot;</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-nx">result</span><span class="tok-p">[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">==</span> <span class="tok-sc">&#39; &#39;</span> <span class="tok-p">{</span>
+        <span class="tok-nx">result</span> <span class="tok-p">=</span> <span class="tok-nx">result</span><span class="tok-p">[</span><span class="tok-mi">1</span><span class="tok-p">:]</span>
+        <span class="tok-nx">trimmedSpaceCount</span><span class="tok-o">++</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При этом совсем не обязательно использовать для возврата именно именованные результаты:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">stripLeftSpaces</span><span class="tok-p">(</span><span class="tok-nx">s</span> <span class="tok-kt">string</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nx">result</span> <span class="tok-kt">string</span><span class="tok-p">,</span> <span class="tok-nx">trimmedSpaceCount</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-nx">trimmedSpaceCount</span> <span class="tok-p">&lt;</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">s</span><span class="tok-p">)</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-nx">s</span><span class="tok-p">[</span><span class="tok-nx">trimmedSpaceCount</span><span class="tok-p">]</span> <span class="tok-o">==</span> <span class="tok-sc">&#39; &#39;</span><span class="tok-p">;</span> <span class="tok-nx">trimmedSpaceCount</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">s</span><span class="tok-p">[</span><span class="tok-nx">trimmedSpaceCount</span><span class="tok-p">:],</span> <span class="tok-nx">trimmedSpaceCount</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_анонимные_функции">Анонимные функции</h4>
+<div class="paragraph">
+<p>В Go функции являются такими же данными, как переменные или константы. То есть функции можно передавать как аргументы в другие функции. Например, напишем функцию, находящую минимальное натуральное число (не включая 0), для которого выполнена некоторая проверка <code>check</code>, которая является функцией, принимающей целое число и возвращающей булево значение:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">findMinimal</span><span class="tok-p">(</span><span class="tok-nx">check</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">bool</span><span class="tok-p">)</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span>
+    <span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-p">!</span><span class="tok-nx">check</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">);</span> <span class="tok-nx">i</span> <span class="tok-o">*=</span> <span class="tok-mi">2</span><span class="tok-p">{</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-p">=</span> <span class="tok-nx">i</span> <span class="tok-o">/</span> <span class="tok-mi">2</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&gt;</span> <span class="tok-mi">1</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-p">!</span><span class="tok-nx">check</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">);</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">i</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_функции_с_переменным_количеством_аргументов">Функции с переменным количеством аргументов</h4>
+
+</div>
 </div>
 <div class="sect2">
 <h3 id="_константы_и_глобальная_область_видимости">Константы и глобальная область видимости</h3>
