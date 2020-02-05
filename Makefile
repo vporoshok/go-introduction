@@ -10,3 +10,8 @@ watch:
 		make docs; \
 		inotifywait -qe modify ${sources}; \
 	done
+
+pdf: main.pdf
+
+main.pdf: ${sources}
+	asciidoctor-pdf main.adoc
