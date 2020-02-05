@@ -14,4 +14,4 @@ WaitGroup, ErrGroup
 
 === Прерывание пула go-рутин
 
-Context
+==== Context

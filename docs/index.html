@@ -514,11 +514,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_сложные_типы_данных">Сложные типы данных</a>
 <ul class="sectlevel2">
 <li><a href="#_структуры">Структуры</a></li>
+<li><a href="#_указатели">Указатели</a></li>
 <li><a href="#_массивы">Массивы</a></li>
 <li><a href="#_срезы">Срезы</a></li>
 <li><a href="#_хеш_таблицы">Хеш-таблицы</a></li>
-<li><a href="#_указатели">Указатели</a></li>
 <li><a href="#_каналы">Каналы</a></li>
+<li><a href="#_пара_слов_об_оформлении_кода">Пара слов об оформлении кода</a></li>
 <li><a href="#_пример_сортировка_вставками">Пример: сортировка вставками</a></li>
 </ul>
 </li>
@@ -567,6 +568,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_makefile_для_go_проектов">Makefile для Go-проектов</a></li>
 <li><a href="#_линтеры_и_другие_инструменты">Линтеры и другие инструменты</a></li>
 <li><a href="#_особые_комментарии">Особые комментарии</a></li>
+<li><a href="#_сборка_мусора">Сборка мусора</a></li>
 </ul>
 </li>
 <li><a href="#_литература_и_ссылки">Литература и ссылки</a></li>
@@ -624,6 +626,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>Все приведённые выше развилки имеют достоинства и недостатки с обоих сторон. Нельзя сказать, что компилируемые языки лучше или хуже интерпретируемых. Для некоторых задач что-то больше подходит, что-то меньше. Из своего опыта могу лишь сказать, что в долгосрочной перспективе компиляция и строгая статическая типизация помогают уберечься от глупых ошибок, хоть по началу и требуют больше времени для написания кода.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Пара слов о рантайме</div>
+<div class="paragraph">
+<p>Стоит заметить также, что Go имеет так называемый рантайм (runtime), функциональность, которая добавляется в любую программу при компиляции. Поэтому даже просто hello world в скомпилированном виде имеет размер почти 2 МБ (1968 КБ для версии 1.12.10 linux/amd64). Для чего же нужен этот дополнительный багаж?</p>
+</div>
+<div class="paragraph">
+<p>Во-первых, в рантайм встроен сборщик мусора, освобождающий память, от неиспользуемых переменных. Это значительно облегчает написание кода, в сравнении с низкоуровневыми языками, такими как Си и C++. разработчик не должен сам следить за использованием памяти, вызывая вручную примитивы типа <code>malloc</code> и <code>mfree</code>, хотя для оптимизации высоконагруженных мест Go позволяет переходить к ручному управлению памятью.</p>
+</div>
+<div class="paragraph">
+<p>Во-вторых, рантайм отвечает также за переключение между go-рутинами, позволяя оптимально распределять ресурсы системы под выполняемые задачи. Более подробно про go-рутины и конкурентную модель выполнения Go вы можете прочитать в <a href="#_конкурентное_программирование">соответствующей главе</a>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_hello_world">Hello, World!</h3>
@@ -1719,19 +1735,187 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_сложные_типы_данных">Сложные типы данных</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Важной отличительной чертой скалярных типов является то, что при передаче их в качестве аргументов в функцию, на самом деле в функцию попадает копия объекта. Для наглядности рассмотрим пример:</p>
+</div>
+<div class="listingblock">
+<div class="title">05_scalar_args/main.go</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kn">package</span> <span class="tok-nx">main</span>
+
+<span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">increment</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-nx">x</span><span class="tok-o">++</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+	<span class="tok-nx">n</span> <span class="tok-o">:=</span> <span class="tok-mi">12</span>
+	<span class="tok-nx">increment</span><span class="tok-p">(</span><span class="tok-nx">n</span><span class="tok-p">)</span>
+	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">n</span><span class="tok-p">)</span> <span class="tok-c1">// 12</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>По факту переменные <code>n</code> и <code>x</code> будут указывать на разные участки оперативной памяти. В этой части мы рассмотрим типы данных, для которых это не так однозначно.</p>
+</div>
 <div class="sect2">
 <h3 id="_структуры">Структуры</h3>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Структурные тэги.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Структуры в Go, как и в Си представляют из себя связанный набор переменных. Например, если в программе используется ФИО, будет полезно иметь тройку переменных, отвечающих за фамилию, имя и отчество:структура:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">var</span> <span class="tok-nx">fio</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Last</span><span class="tok-p">,</span> <span class="tok-nx">First</span><span class="tok-p">,</span> <span class="tok-nx">Middle</span> <span class="tok-kt">string</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Далее к полям этой структуры можно обращаться через точку:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">fio</span><span class="tok-p">.</span><span class="tok-nx">Last</span> <span class="tok-p">=</span> <span class="tok-s">&quot;Иванов&quot;</span>
+<span class="tok-nx">fio</span><span class="tok-p">.</span><span class="tok-nx">First</span> <span class="tok-p">=</span> <span class="tok-s">&quot;Иван&quot;</span>
+<span class="tok-nx">fio</span><span class="tok-p">.</span><span class="tok-nx">Middle</span> <span class="tok-p">=</span> <span class="tok-s">&quot;Иванович&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Как видно структура не является скалярным типом в нашем определении, потому что мы можем изменять изолированно часть данных, обращаясь к конкретному полю.</p>
+</div>
+<div class="paragraph">
+<p>Если в нашей программе тройка ФИО встречается не единожды, удобно объявить новый тип данных, описывающий такую структуру:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">type</span> <span class="tok-nx">FIO</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Last</span><span class="tok-p">,</span> <span class="tok-nx">First</span><span class="tok-p">,</span> <span class="tok-nx">Middle</span> <span class="tok-kt">string</span>
+<span class="tok-p">}</span>
+
+<span class="tok-nx">fio</span> <span class="tok-o">:=</span> <span class="tok-nx">FIO</span><span class="tok-p">{</span>
+    <span class="tok-nx">Last</span><span class="tok-p">:</span>   <span class="tok-s">&quot;Иванов&quot;</span><span class="tok-p">,</span>
+    <span class="tok-nx">First</span><span class="tok-p">:</span>  <span class="tok-s">&quot;Иван&quot;</span><span class="tok-p">,</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Обратите внимание, что при создании объекта порядок полей может отличаться от порядка в объявлении типа, также могут быть перечисленны не все поля. Но можно не указывать имена полей, в таком случае порядок должен быть полностью совпадать с порядком объявления и пропуски запрещены:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">fio</span> <span class="tok-o">:=</span> <span class="tok-nx">FIO</span><span class="tok-p">{</span><span class="tok-s">&quot;Иванов&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иван&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иванович&quot;</span><span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Пустая структура</div>
+<div class="paragraph">
+<p>Иногда в коде, написанном на Go, встречается следующая конструкция:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">type</span> <span class="tok-nx">myType</span> <span class="tok-kd">struct</span><span class="tok-p">{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>или</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kd">struct</span><span class="tok-p">{}{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Переменные такого типа не будут занимать память для данных, но сохранят привязку к типу. Это может пригодиться, например, для построения множеств с помощью <a href="#_хеш_таблицы">хеш-таблиц</a> или как приватный ключ для данных в <a href="#_context">контексте</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Теперь мы также можем передать переменную такого типа в функцию. И в этом случае поведение структуры похоже на поведение скалярных типов, создаётся копия переменной:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">type</span> <span class="tok-nx">Animal</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Kind</span> <span class="tok-kt">string</span>
+    <span class="tok-nx">Name</span> <span class="tok-kt">string</span>
+    <span class="tok-nx">Age</span>  <span class="tok-kt">int</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">incrementAge</span><span class="tok-p">(</span><span class="tok-nx">animal</span> <span class="tok-nx">Animal</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-nx">animal</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-o">++</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Jackie</span> <span class="tok-o">:=</span> <span class="tok-nx">Animal</span><span class="tok-p">{</span>
+        <span class="tok-nx">Kind</span><span class="tok-p">:</span> <span class="tok-s">&quot;dog&quot;</span><span class="tok-p">,</span>
+        <span class="tok-nx">Name</span><span class="tok-p">:</span> <span class="tok-s">&quot;Джеки&quot;</span><span class="tok-p">,</span>
+        <span class="tok-nx">Age</span><span class="tok-p">:</span>  <span class="tok-mi">17</span><span class="tok-p">,</span>
+    <span class="tok-p">}</span>
+    <span class="tok-nx">incrementAge</span><span class="tok-p">(</span><span class="tok-nx">Jackie</span><span class="tok-p">)</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">Jackie</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-p">)</span> <span class="tok-c1">// 17</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для изменения данных структуры внутри функции можно воспользоваться указателями.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_указатели">Указатели</h3>
+<div class="paragraph">
+<p>Указатель это адрес данных в памяти. Если мы создадим копию этого адреса, он всё равно будет указывать на ту же область памяти. Таким образом при передаче указателя в качестве аргумента мы не создаём копию данных, копия указателя ссылается на те же данные. В Go существую только типизированные указатели, то есть они указывают на область памяти, где располагаются данные определённого типа. Этим типом может быть любой другой тип (кроме интерфейса, но об этом <a href="#_интерфейсы_и_полиморфизм">позже</a>). Для указания того, что переменная является указателем перед типом добавляется символ <code>*</code>. Например:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">incrementAgeByPointer</span><span class="tok-p">(</span><span class="tok-nx">animal</span> <span class="tok-o">*</span><span class="tok-nx">Animal</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-nx">animal</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-o">++</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Обращение к полям структуры не зависит от того, является ли переменная указателем или нет, но для других типов это не так. Например, если у нас есть указатель на число, то для работы с ним как с числом его необходимо разыменовать с помощью того же символа <code>*</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">func</span> <span class="tok-nx">incrementByPointer</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">*</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-nx">x</span><span class="tok-p">)</span><span class="tok-o">++</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для того же, чтобы получить указатель на данные необходимо воспользоваться оператором <code>&amp;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">incrementAgeByPointer</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-nx">Jackie</span><span class="tok-p">)</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">Jackie</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-p">)</span> <span class="tok-c1">// 18</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Также при определении структуры можно вместо данных сразу получить указатель:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">fio</span> <span class="tok-o">:=</span> <span class="tok-o">&amp;</span><span class="tok-nx">FIO</span><span class="tok-p">{</span><span class="tok-s">&quot;Иванов&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иван&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иванович&quot;</span><span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для других констант это невозможно, так что необходимо создавать переменную и получать указатель именно на неё:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">s</span> <span class="tok-o">:=</span> <span class="tok-s">&quot;some string&quot;</span>
+<span class="tok-nx">p</span> <span class="tok-o">:=</span> <span class="tok-o">&amp;</span><span class="tok-nx">s</span></code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Пара слов о памяти</div>
+<div class="paragraph">
+<p>Стоит отметить, что указатель далеко не бесплатная переменная. Во-первых, в зависимости от системы он занимает в памяти 4 или 8 байт для 32- и 64-битных систем соответственно. Во-вторых, наличие указателя на определённые данные повышает вероятность того, что память для этих данных будет выделена в куче вместо стека, а соответственно это добавит работы сборщику мусора. Однако для больших структур вероятность выделения памяти в куче и так велика, а дополнительные 8 байт на указатель могут в несколько раз быть меньше памяти, необходимой на копию. Использовать или не использовать указатель сильно зависит от контекста и нет единого правила.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1747,11 +1931,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 </div>
 <div class="sect2">
-<h3 id="_указатели">Указатели</h3>
+<h3 id="_каналы">Каналы</h3>
 
 </div>
 <div class="sect2">
-<h3 id="_каналы">Каналы</h3>
+<h3 id="_пара_слов_об_оформлении_кода">Пара слов об оформлении кода</h3>
 
 </div>
 <div class="sect2">
@@ -1858,8 +2042,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_прерывание_пула_go_рутин">Прерывание пула go-рутин</h3>
-<div class="paragraph">
-<p>Context</p>
+<div class="sect3">
+<h4 id="_context">Context</h4>
+
 </div>
 </div>
 </div>
@@ -1897,6 +2082,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_особые_комментарии">Особые комментарии</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_сборка_мусора">Сборка мусора</h3>
 
 </div>
 </div>
