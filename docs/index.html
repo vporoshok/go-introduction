@@ -1869,6 +1869,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Также при присваивании одной переменной другой будет происходить копирование:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">Copy</span> <span class="tok-o">:=</span> <span class="tok-nx">Jackie</span>
+<span class="tok-nx">Copy</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-o">++</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">Jackie</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-p">)</span> <span class="tok-c1">// 17</span></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Для изменения данных структуры внутри функции можно воспользоваться указателями.</p>
 </div>
@@ -1932,7 +1953,47 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect2">
 <h3 id="_массивы">Массивы</h3>
+<div class="paragraph">
+<p>Массивы в Go похожи на тип array в Pascal. При описании типа мы должны указать количество и тип элементов:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-kd">type</span> <span class="tok-nx">Point</span> <span class="tok-p">[</span><span class="tok-mi">2</span><span class="tok-p">]</span><span class="tok-kt">int</span>
 
+<span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">Point</span><span class="tok-p">{</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">12</span><span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>С точки зрения хранения данных массив очень похож на структуру, где все поля имеют одинаковый тип и вместо имён полей используются индексы от 0 до n-1 (где n это количество элементов массива). Поэтому и ведут себя они также как структуры.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">О равенстве</div>
+<div class="paragraph">
+<p>Заметим, что все скалярные типы можно сравнивать на равенство. Если оба операнда имеют один тип и данные, хранящиеся в них равны, то отношение <code>==</code> вернёт истину. То же самое применимо и к струтурам, и к массивам:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">ivan1</span> <span class="tok-o">:=</span> <span class="tok-nx">FIO</span><span class="tok-p">{</span><span class="tok-s">&quot;Иванов&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иван&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иванович&quot;</span><span class="tok-p">}</span>
+<span class="tok-nx">ivan2</span> <span class="tok-o">:=</span> <span class="tok-nx">FIO</span><span class="tok-p">{</span><span class="tok-s">&quot;Иванов&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иван&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Иванович&quot;</span><span class="tok-p">}</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">ivan1</span> <span class="tok-o">==</span> <span class="tok-nx">ivan2</span><span class="tok-p">)</span> <span class="tok-c1">// true</span>
+
+<span class="tok-nx">p1</span> <span class="tok-o">:=</span> <span class="tok-nx">Point</span><span class="tok-p">{</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">15</span><span class="tok-p">}</span>
+<span class="tok-nx">p2</span> <span class="tok-o">:=</span> <span class="tok-nx">Point</span><span class="tok-p">{</span><span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">15</span><span class="tok-p">}</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">p1</span> <span class="tok-o">==</span> <span class="tok-nx">p2</span><span class="tok-p">)</span> <span class="tok-c1">// true</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Однако, указатели на эти объекты не будут равны, потому что адреса в памяти у них разные:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-nx">ivan1</span> <span class="tok-o">==</span> <span class="tok-o">&amp;</span><span class="tok-nx">ivan2</span><span class="tok-p">)</span> <span class="tok-c1">// false</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-o">&amp;</span><span class="tok-nx">p1</span> <span class="tok-o">==</span> <span class="tok-o">&amp;</span><span class="tok-nx">p2</span><span class="tok-p">)</span> <span class="tok-c1">// false</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_срезы">Срезы</h3>
