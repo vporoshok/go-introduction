@@ -3,7 +3,7 @@ sources = *.adoc examples/**/*.go
 docs: docs/index.html
 
 docs/index.html: ${sources}
-	asciidoctor main.adoc -o docs/index.html
+	asciidoctor -r asciidoctor-diagram main.adoc -o docs/index.html
 
 watch:
 	@while true; do \
@@ -14,4 +14,4 @@ watch:
 pdf: main.pdf
 
 main.pdf: ${sources}
-	asciidoctor-pdf main.adoc
+	asciidoctor-pdf -r asciidoctor-diagram main.adoc
