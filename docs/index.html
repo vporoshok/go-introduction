@@ -468,6 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_каналы">Каналы</a></li>
 <li><a href="#_пара_слов_об_оформлении_кода">Пара слов об оформлении кода</a></li>
 <li><a href="#_пример_сортировка_вставками">Пример: сортировка вставками</a></li>
+<li><a href="#_задачи_2">Задачи</a></li>
 </ul>
 </li>
 <li><a href="#_тестирование">Тестирование</a>
@@ -2493,6 +2494,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_пример_сортировка_вставками">Пример: сортировка вставками</h3>
 
+</div>
+<div class="sect2">
+<h3 id="_задачи_2">Задачи</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Какую потенциальную проблему может вызвать следующий код?</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>func unique(a []int) []int {
+    set := make(map[int]bool, len(a))
+    for i := len(a)-1; i &gt;= 0; i-- {
+        if set[x] {
+           copy(a[:i], a[:i+1])
+           a = a[:len(a)-1]
+        }
+        set[x] = true
+    }
+    return a
+}</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
