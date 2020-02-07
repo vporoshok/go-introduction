@@ -927,7 +927,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Если выполнено условие <code>&lt;condition 1&gt;</code>, то будут выполнены инструкции, перечисленные в <code>&lt;body 1&gt;</code>, если не выполнено условие <code>&lt;condition 1&gt;</code>, но выполнено условие <code>&lt;condition 2&gt;</code>, то будут выполнены инструкции из <code>&lt;body 2&gt;</code>, наконец, если ни одно условие не выполнено, то будут выполнены инструкции из блока <code>else</code> (<code>&lt;body 3&gt;</code>). Блоков <code>else if</code> может быть сколько угодно от 0 и до бесконечности. Блок <code>else</code> может быть пропущен.</p>
 </div>
 <div class="paragraph">
-<p>В качестве условий можгут быть использованы любые выражения, результатом которых имеет тип <code>bool</code>, например:</p>
+<p>В качестве условий могут быть использованы любые выражения, результатом которых имеет тип <code>bool</code>, например:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1084,7 +1084,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Note</div>
 </td>
 <td class="content">
-В отличии от других языков в Go использование констуркции <code>switch</code> не является анти-паттерном, однако длинных и, тем более, повторяющихся <code>switch</code>-ей стоит избегать, используя полиморфизм или хеш-таблицы.
+В отличии от других языков в Go использование конструкции <code>switch</code> не является анти-паттерном, однако длинных и, тем более, повторяющихся <code>switch</code>-ей стоит избегать, используя полиморфизм или хеш-таблицы.
 </td>
 </tr>
 </table>
@@ -1095,9 +1095,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Одной из «фишек» Go является минимизация ключевых слов языка. Именно поэтому все циклы в нём определяются одним ключевым словом <code>for</code>. Но имеются следующие виды циклов:</p>
 </div>
-<div class="paragraph">
-<p><strong>Классический Си-подобный</strong></p>
-</div>
+<div class="sect4">
+<h5 id="_классический_си_подобный">Классический Си-подобный</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">10</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
@@ -1115,9 +1114,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>Аналог цикла <code>while</code></strong></p>
 </div>
+<div class="sect4">
+<h5 id="_аналог_цикла_while">Аналог цикла <code>while</code></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">x</span> <span class="tok-p">&lt;</span> <span class="tok-nx">y</span> <span class="tok-p">{</span>
@@ -1136,11 +1135,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Но Go повзоляет в этом случае не писать лишние точки с запятыми.</p>
+<p>Но Go позволяет в этом случае не писать лишние точки с запятыми.</p>
 </div>
-<div class="paragraph">
-<p><strong>Итерирование</strong></p>
 </div>
+<div class="sect4">
+<h5 id="_итерирование">Итерирование</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
@@ -1149,11 +1148,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Это особый вид цикла, где после ключевого слова <code>range</code> может стоять выражение, результатом которого является строка, массив, срез, хеш-таблица или канал. Принцип действия для строк, массивов и срезов похож: для всех элементов этих объектов будет выполнено тело цикла, а переменная <code>i</code> будет принимать последовательно значения от 0 до длинны объекта без единицы, а <code>x</code> — значения хранящиеся в данном объекте по индексу <code>i</code>. Более подробно действие циклов такого типа будет рассмотренно в разделах, посвящённых <a href="#_срезы">срезам</a>, <a href="#_хеш_таблицы">хеш-таблицам</a> и <a href="#_каналы">каналам</a>.</p>
+<p>Это особый вид цикла, где после ключевого слова <code>range</code> может стоять выражение, результатом которого является строка, массив, срез, хеш-таблица или канал. Принцип действия для строк, массивов и срезов похож: для всех элементов этих объектов будет выполнено тело цикла, а переменная <code>i</code> будет принимать последовательно значения от 0 до длинны объекта без единицы, а <code>x</code> — значения хранящиеся в данном объекте по индексу <code>i</code>. Более подробно действие циклов такого типа будет рассмотрено в разделах, посвящённых <a href="#_срезы">срезам</a>, <a href="#_хеш_таблицы">хеш-таблицам</a> и <a href="#_каналы">каналам</a>.</p>
 </div>
-<div class="paragraph">
-<p><strong>Бесконечный цикл</strong></p>
 </div>
+<div class="sect4">
+<h5 id="_бесконечный_цикл">Бесконечный цикл</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-p">{</span>
@@ -1165,7 +1164,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Наконец, цикл с пустым условием аналогичен циклу с всегда истинным условием. Для выхода из такого цикла необходимо воспользоваться ключевыми словами <code>break</code> или <code>return</code>.</p>
 </div>
 <div class="paragraph">
-<p>Также как и в других языках, в Go есть ключевые слова <code>continue</code> и <code>break</code>. Первое позволяет преждевременно завершить текущую итерцию цикла и перейти к следующей, например:</p>
+<p>Также как и в других языках, в Go есть ключевые слова <code>continue</code> и <code>break</code>. Первое позволяет преждевременно завершить текущую итерацию цикла и перейти к следующей, например:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1190,6 +1189,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     <span class="tok-p">}</span>
     <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">)</span>
 <span class="tok-p">}</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1249,7 +1249,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">+</span> <span class="tok-nx">y</span>
 <span class="tok-p">}</span>
 
-<span class="tok-c1">// Выравнивание строки по правому краю по заданной длинне</span>
+<span class="tok-c1">// Выравнивание строки по правому краю по заданной длине</span>
 <span class="tok-kd">func</span> <span class="tok-nx">leftPad</span><span class="tok-p">(</span><span class="tok-nx">s</span> <span class="tok-kt">string</span><span class="tok-p">,</span> <span class="tok-nx">n</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">string</span> <span class="tok-p">{</span>
     <span class="tok-nx">pad</span> <span class="tok-o">:=</span> <span class="tok-s">&quot;&quot;</span>
     <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">s</span><span class="tok-p">);</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nx">n</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
@@ -1908,7 +1908,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">Note</div>
 </td>
 <td class="content">
-Пустым значением для указателя является <code>nil</code>. Необходимо понмить, что <code>nil</code>-ы в Go являются типизированными. Подробнее об этом мы поговорим при обсуждении <a href="#_почему_nil_nil">интерфейсов</a>
+Пустым значением для указателя является <code>nil</code>. Необходимо помнить, что <code>nil</code>-ы в Go являются типизированными. Подробнее об этом мы поговорим при обсуждении <a href="#_почему_nil_nil">интерфейсов</a>
 </td>
 </tr>
 </table>
@@ -1941,7 +1941,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="title">О равенстве</div>
 <div class="paragraph">
-<p>Заметим, что все скалярные типы можно сравнивать на равенство. Если оба операнда имеют один тип и данные, хранящиеся в них равны, то отношение <code>==</code> вернёт истину. То же самое применимо и к струтурам, и к массивам:</p>
+<p>Заметим, что все скалярные типы можно сравнивать на равенство. Если оба операнда имеют один тип и данные, хранящиеся в них равны, то отношение <code>==</code> вернёт истину. То же самое применимо и к структурам, и к массивам:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1978,7 +1978,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="sect3">
-<h4 id="_итерирование">Итерирование</h4>
+<h4 id="_итерирование_2">Итерирование</h4>
 <div class="paragraph">
 <p>Как упоминалось ранее, для массивов, строк и срезов есть особая форма цикла, позволяющая итерироваться по элементам (байтам в случае строки). Существует две формы этого цикла:</p>
 </div>
@@ -2001,7 +2001,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_срезы">Срезы</h3>
 <div class="paragraph">
-<p>Конечно, при позиционировании Go как высокоуровневого языка, трудно обойтись только лишь массивами с фиксированным размером. Иногда невозможно предугадать количество данных и, как следствие, аллоцировать массив подходящего размера. В этом случае пригодится тип данных, называемый срез (slice). Объявляется он также как и массив, но изначально содержит ноль элементов:</p>
+<p>Конечно, при позиционировании Go как высокоуровневого языка, трудно обойтись только лишь массивами с фиксированным размером. Иногда невозможно предугадать количество данных и, как следствие, определить массив подходящего размера. В этом случае пригодится тип данных, называемый срез (slice). Объявляется он также как и массив, но изначально содержит ноль элементов:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2025,7 +2025,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Таким образом срез предоставляет удобный и гибкий тип данных, однако, есть несколько подводных камней, о которых надо понмить при работе со срезами. Для того, чтобы найти и понять эти нюансы, необходимо разобраться с внутренним устройством срезов.</p>
+<p>Таким образом срез предоставляет удобный и гибкий тип данных, однако, есть несколько подводных камней, о которых надо помнить при работе со срезами. Для того, чтобы найти и понять эти нюансы, необходимо разобраться с внутренним устройством срезов.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2040,7 +2040,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 <div class="paragraph">
-<p>Все элементы среза лежат в памяти друг за другом также, как и в массиве. За счёт этого при работе с этими данными они легко кешируются процессором. Однако с этим связана проблема релокации данных. Представим, что у нас есть срез типа <code>[]int64</code>, в котором 5 элементов. Каждый элемент занимает 8 байт, значит весь набор занимает 40 последовательных байт в оперативной памяти.</p>
+<p>Все элементы среза лежат в памяти друг за другом также, как и в массиве. За счёт этого при работе с этими данными они легко кешируются процессором. Однако с этим связана проблема переноса данных. Представим, что у нас есть срез типа <code>[]int64</code>, в котором 5 элементов. Каждый элемент занимает 8 байт, значит весь набор занимает 40 последовательных байт в оперативной памяти.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2048,7 +2048,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>При этом память вокруг этих 40 байт может быть занята другими данными. Поэтому при добавлении даже одного элемента с помощью команды <code>append</code> может потребоваться зарезервировать новый участок памяти, перенести в него имеющиеся данные и дописать новый элемент. Операции аллокации памяти и копирования данных занимают много времени, поэтому резервировать необхоимо с запасом. Обычно используется удвоение размера, то есть, даже если мы захотим дописать к срезу из 4 элементов ещё один, выгоднее зарезервировать 96 байт, вместо 48.</p>
+<p>При этом память вокруг этих 40 байт может быть занята другими данными. Поэтому при добавлении даже одного элемента с помощью команды <code>append</code> может потребоваться зарезервировать новый участок памяти, перенести в него имеющиеся данные и дописать новый элемент. Операции аллокации памяти и копирования данных занимают много времени, поэтому резервировать необходимо с запасом. Обычно используется удвоение размера, то есть, даже если мы захотим дописать к срезу из 4 элементов ещё один, выгоднее зарезервировать 96 байт, вместо 48.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2056,7 +2056,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Таким образом, у среза помимо данных есть две характеристики: длинна и вместимость. Длинна означает сколько фактически элементов лежит в памяти, а вместимость — под сколько элементов зарезервированно место. Узнать длинну и вместимость среза можно с помощью функций <code>len</code> и <code>cap</code> соответственно:</p>
+<p>Таким образом, у среза помимо данных есть две характеристики: длинна и вместимость. Длинна означает сколько фактически элементов лежит в памяти, а вместимость — под сколько элементов зарезервировано место. Узнать длину и вместимость среза можно с помощью функций <code>len</code> и <code>cap</code> соответственно:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2068,7 +2068,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>При этом релокация данных будет происходить только, если итоговый размер должен будет превзойти текущую вместимость. То есть в результате функции <code>append</code> адрес данных в памяти может измениться, а может нет. Именно поэтому функция <code>append</code> <em>не изменяет</em> переданный в неё срез, а возвращает обновлённый срез. При этом новый срез может использовать ту же память, что и оригинальный.</p>
+<p>При этом перенос данных будет происходить только, если итоговый размер должен будет превзойти текущую вместимость. То есть в результате функции <code>append</code> адрес данных в памяти может измениться, а может нет. Именно поэтому функция <code>append</code> <em>не изменяет</em> переданный в неё срез, а возвращает обновлённый срез. При этом новый срез может использовать ту же память, что и оригинальный.</p>
 </div>
 <div class="sect3">
 <h4 id="_пустой_срез">Пустой срез</h4>
@@ -2088,9 +2088,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="_преаллокация_данных">Преаллокация данных</h4>
+<h4 id="_предварительное_резервирование_памяти">Предварительное резервирование памяти</h4>
 <div class="paragraph">
-<p>Итак, при добавлении элементов в срез возможна релокация данных. Это, как уже упоминалось, достаточно долгая операция. Часто мы можем предсказать сколько будет элементов или по крайней мере не больше скольки их будет. В этом случае можно создать срез с заранее выделенной памятью под данные. Для этого можно воспользоваться встроенной функцией <code>make</code>, доступной в двух вариантах записи:</p>
+<p>Итак, при добавлении элементов в срез возможен перенос данных. Это, как уже упоминалось, достаточно долгая операция. Часто мы можем предсказать сколько будет элементов или по крайней мере знаем верхнюю границу их количества. В этом случае можно создать срез с заранее выделенной памятью под данные. Для этого можно воспользоваться встроенной функцией <code>make</code>, доступной в двух вариантах записи:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2177,7 +2177,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Важно помнить, что функция <code>copy</code> копирует элементов не больше, чем есть в <code>&lt;src&gt;</code> и для которых есть место в <code>&lt;dst&gt;</code>, то есть срез <code>&lt;dst&gt;</code> обязательно нужно преалоцировать, например, с использованием функции <code>make</code>.</p>
+<p>Важно помнить, что функция <code>copy</code> копирует элементов не больше, чем есть в <code>&lt;src&gt;</code> и для которых есть место в <code>&lt;dst&gt;</code>, то есть для среза <code>&lt;dst&gt;</code> необходимо заранее выделить память, например, с использованием функции <code>make</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2281,13 +2281,206 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Дргуие операции над срезами вы можете найти в вики языка: <a href="https://github.com/golang/go/wiki/SliceTricks" class="bare">https://github.com/golang/go/wiki/SliceTricks</a>.</p>
+<p>Другие операции над срезами вы можете найти в вики языка: <a href="https://github.com/golang/go/wiki/SliceTricks" class="bare">https://github.com/golang/go/wiki/SliceTricks</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_хеш_таблицы">Хеш-таблицы</h3>
+<div class="paragraph">
+<p>Хеш-таблицы, они же мапы, они же словари. Реализация этой структуры данных в Go заслуживает отдельной большой работы, потому что на сегодняшний день она одна из самых оптимальных в плане затрат памяти. Но в рамках этого курса мы не будем вдаваться в подробности реализации. Разберём только принцип работы, не зависящий от языка и реализации, и некоторые особенности поведения переменных этого типа в Go.</p>
+</div>
+<div class="paragraph">
+<p><strong>Задача.</strong> Необходимо уметь хранить множество пар ключ-значение, так чтобы максимально эффективно реализовывались три операции:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>поиск по ключу;</p>
+</li>
+<li>
+<p>добавление пары или изменение значения по ключу;</p>
+</li>
+<li>
+<p>удаление пары по ключу;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Эту задачу можно решить различными структурами данных. Например, если ключи можно упорядочить, то применимы деревья поиска, которые помимо вышеописанных операций могут добавлять эффективные взятие диапазона ключей, слияние и другие. Но наиболее эффективно эти операции реализует хеш-таблица.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Как работают хеш-таблицы</div>
+<div class="paragraph">
+<p>В памяти выделяется монолитный участок для хранения \(N\) пар. Доступ к конкретной паре осуществляется по индексу. После этого для хеш-таблицы создаётся хеширующая функция, с помощью которой из ключа можно получить индекс в диапазоне \([0,N-1]\). Таким образом для всех операций ключ преобразовывается в индекс и работа ведётся как с массивом.</p>
+</div>
+<div class="paragraph">
+<p>Конечно, возможны коллизии хеширующей функции, когда два разных ключа отображаются в один индекс. Существует несколько способов разрешения этих конфликтов. Подробнее про эти способы вы можете прочитать в книге Н. Вирта<a href="#virt">[virt]</a>. А в курсе Школы Анализа Данных<a href="#shad">[shad]</a> подробно разбирается устройство хеширующей функции.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Работу с хеш-таблицами продемонстрируем на примере нахождения самой часто-встречаемой буквы в тексте:
+.06_most_frequent_rune/main.go</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><table class="linenotable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><pre><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
 
+<span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+	<span class="tok-nx">text</span> <span class="tok-o">:=</span> <span class="tok-s">`Welcome to a tour of the Go programming language. The tour is</span>
+<span class="tok-s">divided into a list of modules that you can access by clicking on A Tour of Go</span>
+<span class="tok-s">on the top left of the page. You can also view the table of contents at any</span>
+<span class="tok-s">time by clicking on the menu on the top right of the page. Throughout the tour</span>
+<span class="tok-s">you will find a series of slides and exercises for you to complete.`</span>
+	<span class="tok-nx">counts</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">rune</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span>
+	<span class="tok-k">for</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">c</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">text</span> <span class="tok-p">{</span>
+		<span class="tok-k">switch</span> <span class="tok-nx">c</span> <span class="tok-p">{</span>
+		<span class="tok-k">case</span> <span class="tok-sc">&#39; &#39;</span><span class="tok-p">,</span> <span class="tok-sc">&#39;.&#39;</span><span class="tok-p">:</span>
+			<span class="tok-c1">// не будем учитывать эти символы в статистике</span>
+		<span class="tok-k">default</span><span class="tok-p">:</span>
+			<span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">c</span><span class="tok-p">]</span> <span class="tok-o">+=</span> <span class="tok-mi">1</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">}</span>
+	<span class="tok-kd">var</span> <span class="tok-p">(</span>
+		<span class="tok-nx">res</span> <span class="tok-kt">rune</span>
+		<span class="tok-nx">max</span> <span class="tok-kt">int</span>
+	<span class="tok-p">)</span>
+	<span class="tok-k">for</span> <span class="tok-nx">c</span><span class="tok-p">,</span> <span class="tok-nx">count</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">counts</span> <span class="tok-p">{</span>
+		<span class="tok-k">if</span> <span class="tok-nx">count</span> <span class="tok-p">&gt;</span> <span class="tok-nx">max</span> <span class="tok-p">{</span>
+			<span class="tok-nx">res</span> <span class="tok-p">=</span> <span class="tok-nx">c</span>
+			<span class="tok-nx">max</span> <span class="tok-p">=</span> <span class="tok-nx">count</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">}</span>
+	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nb">string</span><span class="tok-p">(</span><span class="tok-nx">res</span><span class="tok-p">))</span> <span class="tok-c1">// преобразуем руну в строку, иначе будет выведен код</span>
+<span class="tok-p">}</span>
+</pre></td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для объявления переменной типа хеш-таблица используется выражение <code>map[&lt;тип ключа&gt;]&lt;тип значения&gt;</code>. Для чтения и записи по ключу используется синтаксис с указанием ключа в квадратных скобках. Важно отметить, что при чтении в таблице может не быть пары с данным ключом, тогда в качестве значения вернётся пустое значение, соответствующего типа. Если нам важно различать: есть ли ключ и по нему лежит пустое значение или пары с таким ключом нет, можно использовать расширенный синтаксис чтения: <code>val, ok := m[key]</code>, для первой ситуации переменной <code>ok</code> будет присвоена истина, для второй — ложь. Для удаления пары по ключу используется встроенная функция <code>delete(m, key)</code>.</p>
+</div>
+<div class="paragraph">
+<p>Тип ключей должен поддерживать операции сравнения на равенство, к таким типам относятся все числовые типы и основанные на них, булевые, строки, указатели, каналы, интерфейсы, а также структуры и массивы, содержащие указанные типы. То есть нельзя использовать в качестве ключей функции, срезы и другие хеш-таблицы.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Почему хеш-таблицы называются map</div>
+<div class="paragraph">
+<p>Дело в том, что хеш-таблицы своего рода задают сопоставление множества ключей и множества значений, то есть, говоря математическим языком отображение множества ключей в множество значений. Частным случаем отображений являются хорошо знакомые нам математические функции. В английском языке для отображений используют термин <em>map</em>. Отсюда и название этой структуры.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_создание_хеш_таблиц">Создание хеш-таблиц</h4>
+<div class="paragraph">
+<p>TODO: создание хеш-таблиц, nil, резервирование памяти.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Пара слов о памяти</div>
+<div class="paragraph">
+<p>TODO: пара слов о памяти для хеш-таблиц</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_использование_хеш_таблиц_как_множеств">Использование хеш-таблиц как множеств</h4>
+<div class="paragraph">
+<p>Часто возникает потребность в получении множества каких-то объектов. Например, для удаления дубликатов. В этом случае можно использовать хеш-таблицу, используя объекты в качестве ключей. При этом значения нам не важны, важно понимать — есть уже объект в виде ключа в множестве или нет. Для удобства будем хранить там булево значение, записывая истину для добавляемых элементов:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">unique</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">[]</span><span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-nx">set</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">bool</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">))</span>
+    <span class="tok-nx">res</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">([]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">))</span>
+    <span class="tok-k">for</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">a</span> <span class="tok-p">{</span>
+        <span class="tok-k">if</span> <span class="tok-p">!</span><span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">{</span>
+            <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+            <span class="tok-nx">res</span> <span class="tok-p">=</span> <span class="tok-nb">append</span><span class="tok-p">(</span><span class="tok-nx">res</span><span class="tok-p">,</span> <span class="tok-nx">x</span><span class="tok-p">)</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">res</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если объектов очень много, то для экономии памяти можно в качестве значений использовать пустые структуры. При этом проверка на вхождение в объекта в множество становится несколько сложнее:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">if</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">];</span> <span class="tok-p">!</span><span class="tok-nx">ok</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Однако, если нет задачи сохранять порядок, то код и с пустыми структурами останется простым и наглядным:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">unique</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">[]</span><span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-nx">set</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kd">struct</span><span class="tok-p">{},</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">))</span>
+    <span class="tok-k">for</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">a</span> <span class="tok-p">{</span>
+        <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-kd">struct</span><span class="tok-p">{}{}</span>
+    <span class="tok-p">}</span>
+    <span class="tok-nx">res</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">([]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">set</span><span class="tok-p">))</span>
+    <span class="tok-k">for</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">set</span> <span class="tok-p">{</span>
+        <span class="tok-nx">res</span> <span class="tok-p">=</span> <span class="tok-nb">append</span><span class="tok-p">(</span><span class="tok-nx">res</span><span class="tok-p">,</span> <span class="tok-nx">x</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">res</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Пара слов о порядке</div>
+<div class="paragraph">
+<p>Хеш-функции, используемы в Go на самом деле формируют изоморфное отображение, то есть получаемые индексы имеют тот же порядок, что и ключи. Конечно, за исключением тех случаев, когда возникают коллизии, кои маловероятны на небольших объёмах данных. Таким образом при итерировании по хеш-таблицам ключи оказываются упорядочены. Это поведение не было описано в спецификации языка и могло измениться при изменении алгоритма хеш-функции. Однако, некоторые разработчики стали эксплуатировать это свойство. Предупреждая распространение этого в массово используемые библиотеки в версии 1.3 введена принудительная рандомизация порядка обхода хеш-таблиц.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_многомерные_хеш_таблицы">Многомерные хеш-таблицы</h4>
+<div class="paragraph">
+<p>TODO: многомерная хеш-таблица.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_каналы">Каналы</h3>
@@ -2459,7 +2652,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="bibliography">
 <li>
 <p><a id="cc"></a>[cc] Роберт Мартин. <em>Чистый код. Создание, анализ и рефакторинг.</em>
-Питер, 2018.</p>
+СПб.: Питер, 2018. — 464 с.</p>
+</li>
+<li>
+<p><a id="virt"></a>[virt] Никлаус Вирт. <em>Алгоритмы и структуры данных.</em>
+М.: ДМК Пресс, 2010. – 272 с.</p>
+</li>
+<li>
+<p><a id="shad"></a>[shad] Максим Бабенко. <em>Алгоритмы и структуры данных.</em>
+Учебный курс (видеолекции). — М.: Яндекс, 2012.
+<a href="https://yandexdataschool.ru/edu-process/courses/algorithms" class="bare">https://yandexdataschool.ru/edu-process/courses/algorithms</a></p>
 </li>
 </ul>
 </div>
