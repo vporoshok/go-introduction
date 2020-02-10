@@ -466,7 +466,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_срезы">Срезы</a></li>
 <li><a href="#_хеш_таблицы">Хеш-таблицы</a></li>
 <li><a href="#_каналы">Каналы</a></li>
-<li><a href="#_пара_слов_об_оформлении_кода">Пара слов об оформлении кода</a></li>
 <li><a href="#_пример_сортировка_вставками">Пример: сортировка вставками</a></li>
 <li><a href="#_задачи_2">Задачи</a></li>
 </ul>
@@ -528,6 +527,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>В курсе рассматриваются базовые концепции языка Go, а также основы конкурентного программирования. Язык Go прост в изучении и при этом имеет широкие возможности для оптимизации программ, написанных на нём. В курсе также рассматриваются вопросы, не относящиеся напрямую к изучению языка, но касающиеся применения этого языка в работе или домашних проектах: соглашения по организации кода, версионирование модулей, тестирование кода и многое другое. Также курс содержит указания на материалы для факультативного изучения с более продвинутыми темами, такими как различные подходы к обработке ошибок, рефлексия, генерация кода.</p>
+</div>
+<div class="paragraph">
+<p>Этот курс предполагает, что читатель уже знаком с каким-нибудь языком программирования, поэтому содержит много сравнений и отсылок к другим языкам. Если вы не знаете ни одного языка программирования, начните с изучения языка Си, тем более, что классическая книга по нему, написанная Керниганом и Ритчи, является примером прекрасного учебника, объясняющего сложные абстракции простым и доступным языком с иллюстрациями на лаконичных и понятных примерах<a href="#kr">[kr]</a>.</p>
 </div>
 <div class="paragraph">
 <p>Для работы с курсом вам понадобится установленный компилятор языка Go, который можно установить, воспользовавшись инструкциями на официальном сайте <a href="https://golang.org/" class="bare">https://golang.org/</a>. Также необходимо умение пользоваться командной строкой. Данный учебный материал выложен в открытом доступе под лицензией <a href="https://github.com/vporoshok/go-introduction/blob/master/LICENSE">MIT</a>. Исходный код находится по адресу <a href="https://github.com/vporoshok/go-introduction" class="bare">https://github.com/vporoshok/go-introduction</a>, версия для чтения — <a href="https://vporoshok.me/go-introduction/" class="bare">https://vporoshok.me/go-introduction/</a>. Если вы нашли ошибку, опечатку или неточность, откройте задачу или Pull Request в репозитории или свяжитесь со мной с помощью электронной почты <a href="mailto:vporoshok@gmail.com">vporoshok@gmail.com</a>.</p>
@@ -659,6 +661,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="paragraph">
 <p>В строке 3 подключается стандартный пакет <code>fmt</code>. Этот пакет содержит функции по работе с вводом/выводом и другие вспомогательные функции. В данном случае в 6-й строке мы используем функцию <code>Println</code> из этого пакета, позволяющую вывести на экран текст.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Тулинг</div>
+<div class="paragraph">
+<p>С самой первой версии компилятор <code>go</code> содержит специальную команду: <code>go fmt</code>, с помощью которой можно привести код на Go к стандарту оформления. Это оказалось революционным решением, раз и навсегда положившим конец спорам Tab vs Space и исключившее написание условий и циклов без фигурных скобок. Часть сообщества, конечно, восприняли идею общего стиля кода в штыки, но к настоящему моменту большинство одобряет такой подход. Помимо встроенной команды форматирования со временем появились и более продвинутые утилиты, которые не только форматируют код, но и сами добавляют недостающие импорты и даже пропущенные пустые значения в инструкциях выхода из функций, например, <a href="https://godoc.org/golang.org/x/tools/cmd/goimports"><code>goimports</code></a> и <a href="https://github.com/sqs/goreturns"><code>goreturns</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>Кроме автоматического форматирования компилятор из коробки умеет запускать тесты и бенчмарки, позволяя без сторонних утилит разрабатывать сложные библиотеки и программы. Про это мы поговорим в <a href="#_тестирование">соответствующей главе</a>.</p>
+</div>
+<div class="paragraph">
+<p>Также для языка быстро начал расти арсенал статического анализа кода, направленного как на предотвращение ошибок, так и на ужесточение стиля кода. Первым и классическим линтером для языка стал <a href="https://github.com/golang/lint"><code>golint</code></a>. После этого сообщество создало огромное число анализаторов. О том как лучше запускать этот зоопарк для вашего кода описано в дополнении <a href="#_линтеры_и_другие_инструменты">Линтеры и другие инструменты</a>.</p>
+</div>
+<div class="paragraph">
+<p>Но прежде чем двигаться дальше необходимо зафиксировать несколько моментов, способных вызвать проблемы на старте изучения языка.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Отступ строк формируется табуляцией;</p>
+</li>
+<li>
+<p>Название переменных, типов и функций принято писать в camelCase;</p>
+</li>
+<li>
+<p>Фигурные скобочки обязательны, и их принято расставлять в египетском стиле:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>func declaration, for or if {
+    body
+}</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Висящая запятая обязательна:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>x := []int{
+    1,
+    2,
+    3,
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Без запятой после <code>3</code> компилятор будет ругаться. Аналогично при переносе любых скобок в определении или вызове функции. Вообще, если сомневаетесь — ставить запятую или нет — ставьте, если она не нужна, то <code>go fmt</code> её удалит.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1918,7 +1976,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="title">Пара слов о памяти</div>
 <div class="paragraph">
-<p>Стоит отметить, что указатель далеко не бесплатная переменная. Во-первых, в зависимости от системы он занимает в памяти 4 или 8 байт для 32- и 64-битных систем соответственно. Во-вторых, наличие указателя на определённые данные повышает вероятность того, что память для этих данных будет выделена в куче вместо стека, а соответственно это добавит работы <a href="#_сборка_мусора">сборщику мусора</a>. Однако для больших структур вероятность выделения памяти в куче и так велика, а дополнительные 8 байт на указатель могут в несколько раз быть меньше памяти, необходимой на копию. Использовать или не использовать указатель сильно зависит от контекста и нет единого правила. Если вы не уверены как поступить, положитесь на здравый смысл и <a href="#_линтеры_и_другие_инструменты">линтер</a>, например, &lt;&lt;<a href="https://go-critic.github.io/overview#hugeParam-ref" class="bare">https://go-critic.github.io/overview#hugeParam-ref</a>, go-critic&gt;&gt; по умолчанию считает переломным моментом 80 байт.</p>
+<p>Стоит отметить, что указатель далеко не бесплатная переменная. Во-первых, в зависимости от системы он занимает в памяти 4 или 8 байт для 32- и 64-битных систем соответственно. Во-вторых, наличие указателя на определённые данные повышает вероятность того, что память для этих данных будет выделена в куче вместо стека, а соответственно это добавит работы <a href="#_сборка_мусора">сборщику мусора</a>. Однако для больших структур вероятность выделения памяти в куче и так велика, а дополнительные 8 байт на указатель могут в несколько раз быть меньше памяти, необходимой на копию. Использовать или не использовать указатель сильно зависит от контекста и нет единого правила. Если вы не уверены как поступить, положитесь на здравый смысл и <a href="#_линтеры_и_другие_инструменты">линтер</a>, например, <a href="https://go-critic.github.io/overview#hugeParam-ref"><code>go-critic</code></a> по умолчанию считает переломным моментом 80 байт.</p>
 </div>
 </div>
 </div>
@@ -2406,17 +2464,102 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
+<h4 id="_итерирование_3">Итерирование</h4>
+<div class="paragraph">
+<p>При итерировании по таблице возможны два варианта цикла:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">key</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span>
+<span class="tok-k">for</span> <span class="tok-nx">key</span><span class="tok-p">,</span> <span class="tok-nx">value</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При этом во втором случае значения будут копироваться, то есть, если значения имеют не ссылочный тип, то изменение значения полученного в цикле не изменит значения, хранящегося в таблице:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{</span>
+    <span class="tok-s">&quot;foo&quot;</span><span class="tok-p">:</span> <span class="tok-mi">5</span><span class="tok-p">,</span>
+    <span class="tok-s">&quot;bar&quot;</span><span class="tok-p">:</span> <span class="tok-mi">6</span><span class="tok-p">,</span>
+    <span class="tok-s">&quot;baz&quot;</span><span class="tok-p">:</span> <span class="tok-mi">7</span><span class="tok-p">,</span>
+<span class="tok-p">}</span>
+<span class="tok-k">for</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">value</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
+    <span class="tok-nx">value</span><span class="tok-o">++</span>
+<span class="tok-p">}</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">m</span><span class="tok-p">)</span> <span class="tok-c1">// map[foo:5 bar:6 baz:7]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для модификации необходимо использовать доступ по ключу или обновлять значение в таблице принудительно.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{</span>
+    <span class="tok-s">&quot;foo&quot;</span><span class="tok-p">:</span> <span class="tok-mi">5</span><span class="tok-p">,</span>
+    <span class="tok-s">&quot;bar&quot;</span><span class="tok-p">:</span> <span class="tok-mi">6</span><span class="tok-p">,</span>
+    <span class="tok-s">&quot;baz&quot;</span><span class="tok-p">:</span> <span class="tok-mi">7</span><span class="tok-p">,</span>
+<span class="tok-p">}</span>
+<span class="tok-k">for</span> <span class="tok-nx">key</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">m</span> <span class="tok-p">{</span>
+    <span class="tok-nx">m</span><span class="tok-p">[</span><span class="tok-nx">key</span><span class="tok-p">]</span><span class="tok-o">++</span>
+<span class="tok-p">}</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">m</span><span class="tok-p">)</span> <span class="tok-c1">// map[foo:6 bar:7 baz:8]</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_создание_хеш_таблиц">Создание хеш-таблиц</h4>
 <div class="paragraph">
-<p>TODO: создание хеш-таблиц, nil, резервирование памяти.</p>
+<p>Важно помнить про тот факт, что для работы хеш-таблицы необходимо выделить память для \(N\) пар. Без этого невозможно добавить в хеш-таблицу первую пару, то есть следующий код приведёт к ошибке:</p>
 </div>
-<div class="sidebarblock">
+<div class="listingblock">
 <div class="content">
-<div class="title">Пара слов о памяти</div>
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">var</span> <span class="tok-nx">m</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span>
+<span class="tok-nx">m</span><span class="tok-p">[</span><span class="tok-s">&quot;foo&quot;</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-mi">1</span></code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>TODO: пара слов о памяти для хеш-таблиц</p>
+<p>Это произойдёт потому, что таблицы также как и срезы являются ссылочным типом и при простом объявлении переменные этих типов оказываются указателями в никуда, то есть <code>nil</code>. При этом операции чтения будут валидны для этой переменной, в том числе итерирование будет выполнено ноль раз, как и ожидается, а взятие по ключу вернёт пустое значение и ложь в качестве второго возврата. Для того чтобы инициализировать таблицу для записи необходимо объявить её одним из следующих образов:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>или</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Эти объявления эквивалентны. Рантайм Go не выделяет сразу большой объём памяти, вместо этого используется система бакетов или корзин, при которой по необходимости к хеш-таблице привязываются области памяти, называемые корзинами, в которых хранятся пары, и по необходимости количество корзин добавляется. Таким образом при инициализации хеш-таблицы без дополнительных указаний создаётся всего один бакет и вместе с заголовочной частью пустая таблица занимает 48 байт на 64-битной системе.</p>
+</div>
+<div class="paragraph">
+<p>Если же вы заранее знаете о предполагаемом количестве пар, то можно дать рантайму подсказку:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">m</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">string</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">100</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это будет только подсказка и рантайм может проигнорировать её, выделив меньше памяти. Однако, это хороший способ уменьшить число дополнительных дорогостоящих аллокаций памяти.</p>
+</div>
+<div class="paragraph">
+<p>Также необходимо отметить, что для уменьшения количества коллизий таблице необходимо иметь достаточно свободного места. То есть помимо памяти, занятой парами, необходимо место, свободное для добавления. В среднем свободное место равно используемому месту под ключи. То есть, при использовании в качестве ключей <code>int64</code>, если в таблице находится 100 ключей, то примерно 80 байт выделено под ключи и столько же выделено под возможные вставки.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_передача_хеш_таблиц_качестве_параметров">Передача хеш-таблиц качестве параметров</h4>
+<div class="paragraph">
+<p>Хеш-таблицы всегда являются ссылками, поэтому они ведут себя также, как указатели. Это означает, что при передаче таблицы в качестве аргумента в функцию, будет передан по сути указатель на таблицу, и все изменения будут производиться на той же самой таблице.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2479,44 +2622,135 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_многомерные_хеш_таблицы">Многомерные хеш-таблицы</h4>
 <div class="paragraph">
-<p>TODO: многомерная хеш-таблица.</p>
+<p>Часто возникает задача разграничивать данные по нескольким признакам. Пусть, например, мы пишем систему групповых чатов, и нам необходимо кешировать счётчики непрочитанных сообщений. Для каждого пользователя и для каждого чата. Первое, что приходит в голову это сделать хеш-таблицу хеш-таблиц:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">counts</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>На первом уровне мы будем по идентификатору пользователя находить таблицу, в которой по идентификатору чата находить количество непрочитанных сообщений. При таком подходе возникает сложность при добавлении счётчика, потому что, необходимо выполнить дополнительную проверку: существует ли вложенная таблица для пользователя или необходимо создать новую:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-nx">userCounts</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">userID</span><span class="tok-p">]</span>
+    <span class="tok-k">if</span> <span class="tok-p">!</span><span class="tok-nx">ok</span> <span class="tok-p">{</span>
+        <span class="tok-nx">userCounts</span> <span class="tok-p">=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">)</span>
+        <span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">userID</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-nx">userCounts</span>
+    <span class="tok-p">}</span>
+    <span class="tok-nx">userCounts</span><span class="tok-p">[</span><span class="tok-nx">chatID</span><span class="tok-p">]</span><span class="tok-o">++</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>С другой стороны есть решение этой задачи с использованием одного уровня таблицы. Для этого в качестве ключа используем пару: идентификатор пользовтаеля и идентификатор чата:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">CountKey</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">UserID</span><span class="tok-p">,</span> <span class="tok-nx">ChatID</span> <span class="tok-kt">int</span>
+<span class="tok-p">}</span>
+<span class="tok-nx">counts</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-nx">CountKey</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Тогда увеличение счётчика больше не требует дополнительных проверок:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">CountKey</span><span class="tok-p">{</span><span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span><span class="tok-p">}]</span><span class="tok-o">++</span>
+<span class="tok-p">}</span></code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_каналы">Каналы</h3>
-
+<div class="paragraph">
+<p>TODO: каналы</p>
 </div>
-<div class="sect2">
-<h3 id="_пара_слов_об_оформлении_кода">Пара слов об оформлении кода</h3>
-
 </div>
 <div class="sect2">
 <h3 id="_пример_сортировка_вставками">Пример: сортировка вставками</h3>
-
+<div class="paragraph">
+<p>В качестве примера напишем сортировку вставками. Вообще в стандартной библиотеке уже есть пакет <code>sort</code>, с помощью которого можно сортировать любые срезы и массивы. Однако, этот пример нам ещё пригодится.</p>
 </div>
-<div class="sect2">
-<h3 id="_задачи_2">Задачи</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Какую потенциальную проблему может вызвать следующий код?</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Заметим, что сортировка не добавляет новых элементов в срез, так что мы можем передать срез в функцию сортировки как есть, переставить его элементы местами, и это будет применено к тому участку памяти, на который ссылается оригинальный срез.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>func unique(a []int) []int {
-    set := make(map[int]bool, len(a))
-    for i := len(a)-1; i &gt;= 0; i-- {
-        if set[x] {
-           copy(a[:i], a[:i+1])
-           a = a[:len(a)-1]
-        }
-        set[x] = true
-    }
-    return a
-}</pre>
+<pre class="pygments highlight"><code data-lang="go"><table class="linenotable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><pre><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
+
+<span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">sort</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">);</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+		<span class="tok-nx">j</span> <span class="tok-o">:=</span> <span class="tok-nx">i</span>
+		<span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-nx">j</span> <span class="tok-p">&gt;</span> <span class="tok-mi">0</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">&lt;</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">j</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">];</span> <span class="tok-nx">j</span><span class="tok-o">--</span> <span class="tok-p">{</span>
+		<span class="tok-p">}</span>
+		<span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&gt;</span> <span class="tok-nx">j</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">--</span> <span class="tok-p">{</span>
+			<span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">],</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">],</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">}</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+	<span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">12</span><span class="tok-p">,</span> <span class="tok-mi">8</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">,</span> <span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">}</span>
+	<span class="tok-nx">sort</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span> <span class="tok-c1">// [1 3 8 11 12 22]</span>
+<span class="tok-p">}</span>
+</pre></td></tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_задачи_2">Задачи</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>В примере сдвиг отсортированной части массива при вставке производится в цикле (строки <code>[10:12]</code>). Оптимизируйте этот сдвиг при помощи встроенной функции <code>copy</code>.</p>
+</li>
+<li>
+<p>Какую потенциальную проблему может вызвать следующий код?</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">unique</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">[]</span><span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-nx">set</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">bool</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">))</span>
+    <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-o">&gt;=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">--</span> <span class="tok-p">{</span>
+        <span class="tok-k">if</span> <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">{</span>
+           <span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nx">i</span><span class="tok-p">],</span> <span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nx">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">])</span>
+           <span class="tok-nx">a</span> <span class="tok-p">=</span> <span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span>
+        <span class="tok-p">}</span>
+        <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">a</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -2677,6 +2911,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist bibliography">
 <ul class="bibliography">
 <li>
+<p><a id="kr"></a>[kr] Брайан Керниган и Деннис Ритчи. <em>Язык программирования C. Второе издание, переработанное и дополненное.</em>
+Вильямс, 2019. — 288 с.</p>
+</li>
+<li>
 <p><a id="cc"></a>[cc] Роберт Мартин. <em>Чистый код. Создание, анализ и рефакторинг.</em>
 СПб.: Питер, 2018. — 464 с.</p>
 </li>
@@ -2697,7 +2935,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.1.0<br>
-Last updated 2020-02-03 15:25:03 +0400
+Last updated 2020-02-10 09:18:56 +0400
 </div>
 </div>
 <style>
