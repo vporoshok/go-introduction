@@ -2670,7 +2670,70 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_каналы">Каналы</h3>
 <div class="paragraph">
-<p>TODO: каналы</p>
+<p>Одной из особенностей языка Go является наличие встроенных каналов. С одной стороны в каналах нет ничего особенного, по сути это просто очередь фиксированной длины на основе кольцевого буфера. Помимо стандартных операций очереди (добавление и извлечение элемента) канал можно закрыть.</p>
+</div>
+<div class="paragraph">
+<p>Каналы, также как срезы и таблицы, создаются с помощью встроенной функции <code>make</code>. Так как каналы обладают фиксированной длинной, то её необходимо задать при создании канала:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">ch</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">chan</span> <span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если не указать длину, то будет создан канал нулевой длинны, который будет вести себя также как канал, в котором не осталось свободного места, а именно останавливать выполнение текущей go-рутины до тех пор, пока другая go-рутина не произведёт операцию чтения из канала.</p>
+</div>
+<div class="paragraph">
+<p>Добавление и извлечение элемента производится с помощью оператора <code>&#8592;</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">4</span>
+<span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">5</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-o">&lt;-</span> <span class="tok-nx">ch</span><span class="tok-p">)</span> <span class="tok-c1">// 4</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-o">&lt;-</span> <span class="tok-nx">ch</span><span class="tok-p">)</span> <span class="tok-c1">// 5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При закрытии канала попытка записи в него приведёт к падению программы:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nb">close</span><span class="tok-p">(</span><span class="tok-nx">ch</span><span class="tok-p">)</span>
+<span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">4</span> <span class="tok-c1">// unrecovered panic</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При этом чтение из непустого канала не зависит от его закрытости. Однако, если канал закрыт и пуст, то при чтении из него будет возвращаться пустое значение соответствующего типа. Для того, чтобы определить закрыт канал или действительно содержит пустые значение можно использовать следующую форму чтения:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">4</span>
+<span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">5</span>
+<span class="tok-nb">close</span><span class="tok-p">(</span><span class="tok-nx">ch</span><span class="tok-p">)</span>
+<span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-o">&lt;-</span> <span class="tok-nx">ch</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-c1">// 4 true</span>
+<span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-p">=</span> <span class="tok-o">&lt;-</span> <span class="tok-nx">ch</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-c1">// 5 true</span>
+<span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-p">=</span> <span class="tok-o">&lt;-</span> <span class="tok-nx">ch</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">val</span><span class="tok-p">,</span> <span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-c1">// 0 false</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Также есть специальная форма цикла, выполняющаяся до тех пор, пока канал не будет закрыт:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">4</span>
+<span class="tok-nx">ch</span> <span class="tok-o">&lt;-</span> <span class="tok-mi">5</span>
+<span class="tok-nb">close</span><span class="tok-p">(</span><span class="tok-nx">ch</span><span class="tok-p">)</span>
+<span class="tok-k">for</span> <span class="tok-nx">val</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">ch</span> <span class="tok-p">{</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">val</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Что же такого особенного в каналах? Особенностью каналов является их дружественность к конкурентному коду. Подробнее об использовании каналов обсуждается в <a href="#_csp_communicating_sequential_processes">соответствующей главе</a>.</p>
 </div>
 </div>
 <div class="sect2">
