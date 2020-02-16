@@ -473,9 +473,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_тестирование">Тестирование</a>
 <ul class="sectlevel2">
 <li><a href="#_простой_тест">Простой тест</a></li>
-<li><a href="#_бенчмарки">Бенчмарки</a></li>
-<li><a href="#_вложенные_тесты">Вложенные тесты</a></li>
-<li><a href="#_property_based_тесты">Property-based тесты</a></li>
+<li><a href="#_параметры_запуска_тестов">Параметры запуска тестов</a></li>
+<li><a href="#_тесты_производительности">Тесты производительности</a></li>
+<li><a href="#_примеры_и_главный_тест">Примеры и главный тест</a></li>
 <li><a href="#_задача_оптимизация_сортировки_вставками_бинарным_поиском">Задача: оптимизация сортировки вставками бинарным поиском</a></li>
 </ul>
 </li>
@@ -507,6 +507,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_дополнительно">Дополнительно</a>
 <ul class="sectlevel2">
+<li><a href="#_стандартная_библиотека">Стандартная библиотека</a></li>
 <li><a href="#_обработка_ошибок">Обработка ошибок</a></li>
 <li><a href="#_потоки_reader_и_writer">Потоки (reader и writer)</a></li>
 <li><a href="#_рефлексия">Рефлексия</a></li>
@@ -1241,7 +1242,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">10</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-mi">10</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
     <span class="tok-k">switch</span> <span class="tok-nx">i</span> <span class="tok-p">{</span>
     <span class="tok-k">case</span> <span class="tok-mi">5</span><span class="tok-p">:</span>
         <span class="tok-k">break</span>
@@ -1548,7 +1549,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Получившаяся функция также называется <em>замыканием</em>, потому что ссылается на область видимости функции, которая её порождает (аргумент <code>d</code>). При этом в замыкании можно как читать, так и изменять контекст порождающей функции. С помощью замыканий можно реализовывать различные полезные паттерны проектирования. Например, с помощью замыкания можно создать итератор (объект возвращающий по запросу следующее значение из некоторой последовательности последовательности). Для примера напишем генератор чисел Фибоначчи:</p>
+<p>Получившаяся функция также называется <em>замыканием</em>, потому что ссылается на область видимости функции, которая её порождает (аргумент <code>d</code>). При этом в замыкании можно как читать, так и изменять контекст порождающей функции. С помощью замыканий можно реализовывать различные полезные паттерны проектирования. Например, с помощью замыкания можно создать итератор (объект возвращающий по запросу следующее значение из некоторой последовательности). Для примера напишем генератор чисел Фибоначчи:</p>
 </div>
 <div class="listingblock">
 <div class="title">04_fibonacci/main.go</div>
@@ -1600,6 +1601,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">factorial</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-nx">x</span> <span class="tok-o">==</span> <span class="tok-mi">1</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-mi">1</span>
+    <span class="tok-p">}</span>
     <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">*</span> <span class="tok-nx">factorial</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">)</span>
 <span class="tok-p">}</span></code></pre>
 </div>
@@ -1622,6 +1626,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">factorial</span> <span class="tok-o">:=</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-nx">x</span> <span class="tok-o">==</span> <span class="tok-mi">1</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-mi">1</span>
+    <span class="tok-p">}</span>
     <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">*</span> <span class="tok-nx">factorial</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">)</span>
 <span class="tok-p">}</span></code></pre>
 </div>
@@ -1633,6 +1640,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">var</span> <span class="tok-nx">factorial</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">int</span>
 <span class="tok-nx">factorial</span> <span class="tok-p">=</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-nx">x</span> <span class="tok-o">==</span> <span class="tok-mi">1</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-mi">1</span>
+    <span class="tok-p">}</span>
     <span class="tok-k">return</span> <span class="tok-nx">x</span> <span class="tok-o">*</span> <span class="tok-nx">factorial</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">)</span>
 <span class="tok-p">}</span></code></pre>
 </div>
@@ -1780,7 +1790,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_структуры">Структуры</h3>
 <div class="paragraph">
-<p>Структуры в Go, как и в Си представляют из себя связанный набор переменных. Например, если в программе используется ФИО, будет полезно иметь тройку переменных, отвечающих за фамилию, имя и отчество:структура:</p>
+<p>Структуры в Go, как и в Си представляют из себя связанный набор переменных. Например, если в программе используется ФИО, будет полезно иметь сгруппированную тройку переменных, отвечающих за фамилию, имя и отчество. Для этого можно объединить их с помощью структуры:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1901,6 +1911,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">Copy</span> <span class="tok-o">:=</span> <span class="tok-nx">Jackie</span>
 <span class="tok-nx">Copy</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-o">++</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">Copy</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-p">)</span> <span class="tok-c1">// 18</span>
 <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">Jackie</span><span class="tok-p">.</span><span class="tok-nx">Age</span><span class="tok-p">)</span> <span class="tok-c1">// 17</span></code></pre>
 </div>
 </div>
@@ -2047,11 +2058,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">a</span> <span class="tok-p">{</span>
     <span class="tok-c1">// i последовательно принимает значения от 0 до 4</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Printf</span><span class="tok-p">(</span><span class="tok-s">&quot;key=%v, value=%v&quot;</span><span class="tok-p">,</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">])</span>
 <span class="tok-p">}</span>
 
 <span class="tok-k">for</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">a</span> <span class="tok-p">{</span>
     <span class="tok-c1">// i последовательно принимает значения от 0 до 4</span>
     <span class="tok-c1">// x копия i-го элемента</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Printf</span><span class="tok-p">(</span><span class="tok-s">&quot;key=%v, value=%v&quot;</span><span class="tok-p">,</span> <span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">x</span><span class="tok-p">)</span>
 <span class="tok-p">}</span></code></pre>
 </div>
 </div>
@@ -2115,7 +2128,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Таким образом, у среза помимо данных есть две характеристики: длинна и вместимость. Длинна означает сколько фактически элементов лежит в памяти, а вместимость — под сколько элементов зарезервировано место. Узнать длину и вместимость среза можно с помощью функций <code>len</code> и <code>cap</code> соответственно:</p>
+<p>Таким образом, у среза помимо данных есть две характеристики: длина и вместимость. Длина означает сколько фактически элементов лежит в памяти, а вместимость — под сколько элементов зарезервировано место. Узнать длину и вместимость среза можно с помощью функций <code>len</code> и <code>cap</code> соответственно:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2149,7 +2162,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_предварительное_резервирование_памяти">Предварительное резервирование памяти</h4>
 <div class="paragraph">
-<p>Итак, при добавлении элементов в срез возможен перенос данных. Это, как уже упоминалось, достаточно долгая операция. Часто мы можем предсказать сколько будет элементов или по крайней мере знаем верхнюю границу их количества. В этом случае можно создать срез с заранее выделенной памятью под данные. Для этого можно воспользоваться встроенной функцией <code>make</code>, доступной в двух вариантах записи:</p>
+<p>Итак, при добавлении элементов в срез возможен перенос данных. Это, как уже упоминалось, достаточно долгая операция. Часто мы можем предсказать сколько будет элементов или по крайней мере знаем верхнюю границу их количества. В этом случае можно создать срез с заранее выделенной памятью под данные (в дальнейшем такой срез ничем не будет отличаться от любого другого, по необходимости также будет выделяться новая память и перенос данных). Для этого можно воспользоваться встроенной функцией <code>make</code>, доступной в двух вариантах записи:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2172,7 +2185,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_копирование_среза">Копирование среза</h4>
 <div class="paragraph">
-<p>Можно представить срез как структуру с тремя полями: текущая вместимость, текущая длинна, указатель на область выделенной памяти. Тогда при копировании такой структуры будут созданы копии этих трёх полей, но область памяти с данными скопирована не будет и изменение данных в копии будет изменять данные оригинала:</p>
+<p>Можно представить срез как структуру с тремя полями: текущая вместимость, текущая длина, указатель на область выделенной памяти. Тогда при копировании такой структуры будут созданы копии этих трёх полей, но область памяти с данными скопирована не будет и изменение данных в копии будет изменять данные оригинала:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2275,7 +2288,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="title">Режем всё</div>
 <div class="paragraph">
-<p>На самом деле синтаксис среза можно применять также к строкам и массивам. При этом срез строки будет строкой, а срез массива останется срезом:</p>
+<p>На самом деле синтаксис среза можно применять также к строкам и массивам. При этом срез строки останется строкой, а срез массива станет непосредственно срезом:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2449,8 +2462,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </pre></td></tr></table></code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Тип <code>rune</code> используется для многобайтных символов, например, в кодировке <code>utf8</code>. Собственно строка на самом деле представляет из себя срез байт, с ограничением на изменение. Но при итерировании по строке она ведёт себя как срез рун.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Для объявления переменной типа хеш-таблица используется выражение <code>map[&lt;тип ключа&gt;]&lt;тип значения&gt;</code>. Для чтения и записи по ключу используется синтаксис с указанием ключа в квадратных скобках. Важно отметить, что при чтении в таблице может не быть пары с данным ключом, тогда в качестве значения вернётся пустое значение, соответствующего типа. Если нам важно различать: есть ли ключ и по нему лежит пустое значение или пары с таким ключом нет, можно использовать расширенный синтаксис чтения: <code>val, ok := m[key]</code>, для первой ситуации переменной <code>ok</code> будет присвоена истина, для второй — ложь. Для удаления пары по ключу используется встроенная функция <code>delete(m, key)</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+В Go нет встроенного механизма для очистки всей таблицы. Для этого просто создайте новую пустую таблицу и присвойте её переменной. Старая таблица будет собрана GC, если на неё не осталось больше ссылок.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Тип ключей должен поддерживать операции сравнения на равенство, к таким типам относятся все числовые типы и основанные на них, булевые, строки, указатели, каналы, интерфейсы, а также структуры и массивы, содержащие указанные типы. То есть нельзя использовать в качестве ключей функции, срезы и другие хеш-таблицы.</p>
@@ -2745,6 +2782,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Заметим, что сортировка не добавляет новых элементов в срез, так что мы можем передать срез в функцию сортировки как есть, переставить его элементы местами, и это будет применено к тому участку памяти, на который ссылается оригинальный срез.</p>
 </div>
 <div class="listingblock">
+<div class="title">07_insert_sort/main.go</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="go"><table class="linenotable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -2769,7 +2807,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 <span class="tok-kn">import</span> <span class="tok-s">&quot;fmt&quot;</span>
 
-<span class="tok-kd">func</span> <span class="tok-nx">sort</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+<span class="tok-kd">func</span> <span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
 	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">);</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
 		<span class="tok-nx">j</span> <span class="tok-o">:=</span> <span class="tok-nx">i</span>
 		<span class="tok-k">for</span> <span class="tok-p">;</span> <span class="tok-nx">j</span> <span class="tok-p">&gt;</span> <span class="tok-mi">0</span> <span class="tok-o">&amp;&amp;</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">&lt;</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">j</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">];</span> <span class="tok-nx">j</span><span class="tok-o">--</span> <span class="tok-p">{</span>
@@ -2782,7 +2820,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
 <span class="tok-kd">func</span> <span class="tok-nx">main</span><span class="tok-p">()</span> <span class="tok-p">{</span>
 	<span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">12</span><span class="tok-p">,</span> <span class="tok-mi">8</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">,</span> <span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">}</span>
-	<span class="tok-nx">sort</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+	<span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
 	<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span> <span class="tok-c1">// [1 3 8 11 12 22]</span>
 <span class="tok-p">}</span>
 </pre></td></tr></table></code></pre>
@@ -2822,25 +2860,491 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_тестирование">Тестирование</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Практический любой современный язык из коробки предоставляет инструментарий для написания и запуска тестов. Так и в Go есть встроенная библиотека для написания тестов и команда для запуска. Видов тестов существует достаточно много: модульные, интеграционные, функциональные, end-to-end и так далее. Также существуют различные подходы к написанию тестов: BDD, табличные, golden, property-based, fuzzy и много других. Стандартная библиотека не навязывает какой-то стиль или подход к написанию тестов, но как и многие стандартные пакеты Go даёт базовый инструментарий, с помощью которого можно реализовать практически любой из подходов на любом уровне.</p>
+</div>
+<div class="paragraph">
+<p>Для того, чтобы написать и запустить тест необходимо</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>создать файл с именем, заканчивающимся на <code>_test.go</code>;</p>
+</li>
+<li>
+<p>описать в этом файле функцию, название которой начинается с <code>Test</code>, принимающую один аргумент <code>testing.T</code> и ничего не возвращающую.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">TestSomething</span><span class="tok-p">(</span><span class="tok-nx">t</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">T</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Внутри функции пишется код вызова тестируемых методов и проверки результатов. Если ожидаемый результат неверен, то необходимо пометить тест как проваленный, для этого можно воспользоваться методом <code>t.Fail</code>. Также можно писать в лог о причине провала теста, для этого можно использовать функцию <code>t.Log</code> или вариант с <a href="#_fmt">подстановками</a> <code>t.Logf</code>. Также можно воспользоваться формой <code>t.Error</code> или <code>t.Errorf</code>, совмещающей запись в лог и пометку теста как проваленного.</p>
+</div>
 <div class="sect2">
 <h3 id="_простой_тест">Простой тест</h3>
+<div class="paragraph">
+<p>Давайте протестируем функцию сортировки вставкам, <a href="#_пример_сортировка_вставками">написанную в предыдущей главе</a>. Для этого воспользуемся популярным в Go подходом «табличные тесты». В этом подходе создаётся массив структур в которых описываются входные и выходные параметры, а потом в цикле для каждого элемента этого массива выполняется проверка результата при заданных аргументах.</p>
+</div>
+<div class="listingblock">
+<div class="title">07_insert_sort/main_test.go</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><table class="linenotable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre></div></td><td class="code"><pre><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
 
+<span class="tok-kn">import</span> <span class="tok-p">(</span>
+	<span class="tok-s">&quot;testing&quot;</span>
+<span class="tok-p">)</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">TestSort</span><span class="tok-p">(</span><span class="tok-nx">t</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">T</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-nx">cases</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-o">...</span><span class="tok-p">]</span><span class="tok-kd">struct</span> <span class="tok-p">{</span>
+		<span class="tok-nx">name</span>   <span class="tok-kt">string</span>
+		<span class="tok-nx">input</span>  <span class="tok-p">[]</span><span class="tok-kt">int</span>
+		<span class="tok-nx">result</span> <span class="tok-p">[]</span><span class="tok-kt">int</span>
+	<span class="tok-p">}{</span>
+		<span class="tok-p">{</span>
+			<span class="tok-s">&quot;already sorted&quot;</span><span class="tok-p">,</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">},</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">},</span>
+		<span class="tok-p">},</span>
+		<span class="tok-p">{</span>
+			<span class="tok-s">&quot;inversed&quot;</span><span class="tok-p">,</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">6</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">},</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">},</span>
+		<span class="tok-p">},</span>
+		<span class="tok-p">{</span>
+			<span class="tok-s">&quot;duplicates&quot;</span><span class="tok-p">,</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">6</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">},</span>
+			<span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">,</span> <span class="tok-mi">6</span><span class="tok-p">},</span>
+		<span class="tok-p">},</span>
+	<span class="tok-p">}</span>
+	<span class="tok-k">for</span> <span class="tok-nx">_</span><span class="tok-p">,</span> <span class="tok-nx">c</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">cases</span> <span class="tok-p">{</span>
+		<span class="tok-nx">c</span> <span class="tok-o">:=</span> <span class="tok-nx">c</span>
+		<span class="tok-nx">t</span><span class="tok-p">.</span><span class="tok-nx">Run</span><span class="tok-p">(</span><span class="tok-nx">c</span><span class="tok-p">.</span><span class="tok-nx">name</span><span class="tok-p">,</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">t</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">T</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+			<span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">c</span><span class="tok-p">.</span><span class="tok-nx">input</span><span class="tok-p">)</span>
+			<span class="tok-nx">CompareIntSlices</span><span class="tok-p">(</span><span class="tok-nx">t</span><span class="tok-p">,</span> <span class="tok-nx">c</span><span class="tok-p">.</span><span class="tok-nx">result</span><span class="tok-p">,</span> <span class="tok-nx">c</span><span class="tok-p">.</span><span class="tok-nx">input</span><span class="tok-p">)</span>
+		<span class="tok-p">})</span>
+	<span class="tok-p">}</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">CompareIntSlices</span><span class="tok-p">(</span><span class="tok-nx">t</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">T</span><span class="tok-p">,</span> <span class="tok-nx">expected</span><span class="tok-p">,</span> <span class="tok-nx">actual</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-nx">t</span><span class="tok-p">.</span><span class="tok-nx">Helper</span><span class="tok-p">()</span>
+	<span class="tok-k">if</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">expected</span><span class="tok-p">)</span> <span class="tok-o">!=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">actual</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+		<span class="tok-nx">t</span><span class="tok-p">.</span><span class="tok-nx">Errorf</span><span class="tok-p">(</span><span class="tok-s">&quot;Invalid slice length. Expected %d instead of %d&quot;</span><span class="tok-p">,</span>
+			<span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">expected</span><span class="tok-p">),</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">actual</span><span class="tok-p">))</span>
+		<span class="tok-k">return</span>
+	<span class="tok-p">}</span>
+	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">expected</span> <span class="tok-p">{</span>
+		<span class="tok-k">if</span> <span class="tok-nx">expected</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-o">!=</span> <span class="tok-nx">actual</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">{</span>
+			<span class="tok-nx">t</span><span class="tok-p">.</span><span class="tok-nx">Errorf</span><span class="tok-p">(</span><span class="tok-s">&quot;Invalid element at position %d. Expected %d instead of %d&quot;</span><span class="tok-p">,</span>
+				<span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">expected</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">],</span> <span class="tok-nx">actual</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">])</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">}</span>
+<span class="tok-p">}</span>
+</pre></td></tr></table></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>В данном примере используется синтаксис объявления массива через три точки. По факту эти три точки в момент компиляции будут заменены на количество элементов в объявлении. Например выражение</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-o">...</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>будет заменено на</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-mi">5</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">2</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">,</span> <span class="tok-mi">4</span><span class="tok-p">,</span> <span class="tok-mi">5</span><span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Такой синтаксис удобно использовать потому, что при добавлении или удалении одного из элементов не нужно переписывать количество в квадратных скобках. Конечно, в данном случае можно было бы воспользоваться и срезом, но массив занимает меньше места и не использует указатели, что более дружелюбно к сборщику мусора.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Работа этого нехиторого теста вполне очевидна, за исключением двух строк:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>на 29-й строке выполняется запуск вложенного теста. С помощью вложенных тестов удобно организовывать сложные сценарии тестирования. Идея подтестов заключается в том, что при провале такого теста остальные тесты выполняться независимо, но родительский тест также будет помечен как проваленный. При этом <code>t.Run</code> возвращает <code>false</code> при провале вложенного теста, так что с использованием этой концепции легко построить и сценарные тесты, отделив логические шаги друг от друга, но сохранив последовательность шагов и прервать выполнение теста при провале одного из шагов.</p>
+</li>
+<li>
+<p>на 37-й строке вызывается специальный метод <code>t.Helper()</code>. Этот метод исключает эту функцию из трейса ошибки. Таким образом, если, например, у срезов будет разная длинна, то в логах будет показано, что ошибка возникла не на 39 строке, а на 31. В данном случае это не особо меняет дело, но если такая вспомогательная функция используется в нескольких местах, то удобно видеть в каком именно месте использования она вернула ошибку.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Для запуска этого теста необходимо в командной строке выполнить <code>go test</code>, после чего должны получить сообщение примерно следующего содержания:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PASS
+ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    0.442s</pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_бенчмарки">Бенчмарки</h3>
-
+<h3 id="_параметры_запуска_тестов">Параметры запуска тестов</h3>
+<div class="paragraph">
+<p>Для того, чтобы увидеть более развёрнутый отчёт о запущенных тестах, можно добавить флаг <code>-v</code> в команду запуска. Для отображения тестового покрытия добавить флаг <code>-cover</code>.</p>
+</div>
+<div class="paragraph">
+<p>При запуске тестов нельзя указать только конкретный файл, содержащий тест, потому что в таком случае компилятор не включит другие файлы, а соответственно, в нашем случае, например, не будет включена сама тестируемая функция <code>InsertSort</code>, о чём мы и получим сообщение</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ go test main_test.go
+# command-line-arguments [command-line-arguments.test]
+./main_test.go:30:4: undefined: InsertSort
+FAIL    command-line-arguments [build failed]
+FAIL</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Но можно включить все необходимые файлы для запуска теста: <code>go test main.go main_test.go</code>.</p>
+</div>
+<div class="paragraph">
+<p>Для того же, чтобы запустить конкретный тест, можно через флаг <code>-run</code> указать регулярное выражение, для фильтрации тестов по именам функций. Например</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ go test -v -run Sort/inversed
+=== RUN   TestSort
+=== RUN   TestSort/inversed
+--- PASS: TestSort (0.00s)
+    --- PASS: TestSort/inversed (0.00s)
+PASS
+ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    0.099s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Некоторые тесты не всегда с первого раза выявляют ошибку, особенно, если ошибка проявляется только при определённой нагрузке на сервис или при написании внешних тестов на АПИ. Такие тесты удобно запускать многократно, для этого можно воспользоваться флагом <code>-count</code>. С помощью этого же флага можно «заставить» компилятор заново выполнить закешированный тест.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Кеширование</div>
+<div class="paragraph">
+<p>Начиная с версии 1.10 успешный результат тестирования кешируется. И если файлы не менялись после его запуска, то тест не будет выполняться, а просто покажется сообщение, что тест пройден успешно.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ go test main.go main_test.go
+ok      command-line-arguments  (cached)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для того, чтобы тест всё же выполнился, можно добавить флаг <code>-count 1</code>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>С помощью флага <code>-failfast</code> можно прервать выполнение тестов при первом проваленном тесте. Этот флаг может оказаться полезным для CI систем, если тесты выполняются значительное время.</p>
+</div>
+<div class="paragraph">
+<p>Также в библиотеку тестирования встроена концепция коротких тестов. При запуске тестов можно добавить флаг <code>-short</code>, после чего функция <code>testing.Short()</code> возвращать истину. Таким образом можно пропустить долгие тесты:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">TestSomethingLong</span><span class="tok-p">(</span><span class="tok-nx">t</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">T</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">Short</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+        <span class="tok-nx">t</span><span class="tok-p">.</span><span class="tok-nx">Skip</span><span class="tok-p">(</span><span class="tok-s">&quot;Long test skipped&quot;</span><span class="tok-p">)</span>
+    <span class="tok-p">}</span>
+    <span class="tok-c1">// do something</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_вложенные_тесты">Вложенные тесты</h3>
+<h3 id="_тесты_производительности">Тесты производительности</h3>
+<div class="paragraph">
+<p>Ничего так не радует юного программиста, как сравнение своего решения с чужим. И сравнивать, конечно, необходимо с доказательствами. Для таких сравнений отлично подойдёт встроенный инструментарий для написания тестов производительности или бенчмарков. С другой стороны с помощью таких тестов удобно профилировать узкие участки кода, а также контролировать скорость их работы.</p>
+</div>
+<div class="paragraph">
+<p>Для написания теста производительности необходимо реализовать репрезентативный идемпотентный тест, то есть приближенный к реальным условиям эксплуатации, и такой, чтобы его можно было повторить много раз. В нашем случае это должен быть достаточно большой массив с равномерным распределением чисел (на самом деле нет, но будем рассматривать идеальный случай). Для того, чтобы сгенерировать такой массив воспользуемся стандартным пакетом генерации случайных чисел.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">const</span> <span class="tok-nx">size</span> <span class="tok-p">=</span> <span class="tok-mi">10000</span>
+<span class="tok-nx">data</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-nx">size</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span>
+<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">data</span> <span class="tok-p">{</span>
+    <span class="tok-nx">data</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-nx">rand</span><span class="tok-p">.</span><span class="tok-nx">Int</span><span class="tok-p">()</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+В данном случае используется библиотека <code>math/rand</code> в которой реализован алгоритм генерации случайных чисел с помощью вихря Мерсена. При этом мы не будем задавать зерно для этого генератора, так что при каждом запуске мы будем получать абсолютно одинаковые данные. Это сделано специально, потому что наша задача в данном случае не проверить корректность работы алгоритма, а оценить его время работы. И при этом сделать эту проверку повторяемой.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Сортировка даже 10000 элементов на современном компьютере займёт доли секунды и получить реальное время выполнения будет проблематично. Поэтому для получения конкретных цифр тест запускают несколько раз, считают суммарное время, а потом делят его на количество запусков. Выбор количества запусков зависит от времени выполнения одной операции, и может быть оценён последовательным увеличением. Этот механизм встроен в библиотеку тестирования:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">BenchmarkInsertSort</span><span class="tok-p">(</span><span class="tok-nx">b</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">B</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-kd">const</span> <span class="tok-nx">size</span> <span class="tok-p">=</span> <span class="tok-mi">10000</span>
+	<span class="tok-nx">data</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-nx">size</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span>
+	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">data</span> <span class="tok-p">{</span>
+		<span class="tok-nx">data</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-nx">rand</span><span class="tok-p">.</span><span class="tok-nx">Int</span><span class="tok-p">()</span>
+	<span class="tok-p">}</span>
+	<span class="tok-nx">args</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">([]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">data</span><span class="tok-p">))</span>
+	<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">ResetTimer</span><span class="tok-p">()</span>
+	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">N</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+		<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StopTimer</span><span class="tok-p">()</span>
+		<span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">,</span> <span class="tok-nx">data</span><span class="tok-p">[:])</span>
+		<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StartTimer</span><span class="tok-p">()</span>
+		<span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">)</span>
+	<span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном примере мы специально убрали из подсчёта времени вспомогательные операции по генерации и копированию данных. Для этого мы использовали функцию <code>b.ResetTimer</code> с помощью которой занулили таймер теста, исключив таким образом время, затраченное на генерацию данных. А также использовали функции <code>StopTimer</code> и <code>StartTImer</code>, чтобы не считать время на копирование данных.</p>
+</div>
+<div class="paragraph">
+<p>Для запуска этого теста необходимо выполнить команду <code>go test -bench InsertSort</code>, после чего мы получим примерно такой отчёт:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ go test -bench InsertSort
+goos: darwin
+goarch: amd64
+pkg: github.com/vporoshok/go-introduction/examples/07_insert_sort
+BenchmarkInsertSort-8                 18          65151932 ns/op
+PASS
+ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    1.678s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В отчёте мы видим на какой операционной системе запускался тест, сколько было повторений в цикле и сколько заняла одна операция. Также в виде суффикса теста указывается максимальное доступное число системных тредов (в нашем случае код однопоточный, поэтому можно игнорировать этот показатель).</p>
+</div>
+<div class="paragraph">
+<p>В целом получилось 65 мс. Но как понять — много это или мало? В данном случае мы можем сравнить это со стандартной библиотекой. Для этого расширим тест, сделав два вложенных теста: для нашей функции сортировки и для стандартной:</p>
+</div>
+<div class="listingblock">
+<div class="title">07_insert_sort/main_benchmark_test.go</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><table class="linenotable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><pre><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span>
 
+<span class="tok-kn">import</span> <span class="tok-p">(</span>
+	<span class="tok-s">&quot;math/rand&quot;</span>
+	<span class="tok-s">&quot;sort&quot;</span>
+	<span class="tok-s">&quot;testing&quot;</span>
+<span class="tok-p">)</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">BenchmarkSort</span><span class="tok-p">(</span><span class="tok-nx">b</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">B</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+	<span class="tok-kd">const</span> <span class="tok-nx">size</span> <span class="tok-p">=</span> <span class="tok-mi">10000</span>
+	<span class="tok-nx">data</span> <span class="tok-o">:=</span> <span class="tok-p">[</span><span class="tok-nx">size</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span>
+	<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-k">range</span> <span class="tok-nx">data</span> <span class="tok-p">{</span>
+		<span class="tok-nx">data</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-nx">rand</span><span class="tok-p">.</span><span class="tok-nx">Int</span><span class="tok-p">()</span>
+	<span class="tok-p">}</span>
+	<span class="tok-nx">args</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">([]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">data</span><span class="tok-p">))</span>
+	<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">Run</span><span class="tok-p">(</span><span class="tok-s">&quot;insert&quot;</span><span class="tok-p">,</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">b</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">B</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+		<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">N</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+			<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StopTimer</span><span class="tok-p">()</span>
+			<span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">,</span> <span class="tok-nx">data</span><span class="tok-p">[:])</span>
+			<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StartTimer</span><span class="tok-p">()</span>
+			<span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">)</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">})</span>
+	<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">Run</span><span class="tok-p">(</span><span class="tok-s">&quot;standard&quot;</span><span class="tok-p">,</span> <span class="tok-kd">func</span><span class="tok-p">(</span><span class="tok-nx">b</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">B</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+		<span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-p">&lt;</span> <span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">N</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">++</span> <span class="tok-p">{</span>
+			<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StopTimer</span><span class="tok-p">()</span>
+			<span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">,</span> <span class="tok-nx">data</span><span class="tok-p">[:])</span>
+			<span class="tok-nx">b</span><span class="tok-p">.</span><span class="tok-nx">StartTimer</span><span class="tok-p">()</span>
+			<span class="tok-nx">sort</span><span class="tok-p">.</span><span class="tok-nx">Ints</span><span class="tok-p">(</span><span class="tok-nx">args</span><span class="tok-p">)</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">})</span>
+<span class="tok-p">}</span>
+</pre></td></tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>На что получим примерно следующий отчёт:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ go test -bench Sort
+goos: darwin
+goarch: amd64
+pkg: github.com/vporoshok/go-introduction/examples/07_insert_sort
+BenchmarkSort/insert-8                16          68174407 ns/op
+BenchmarkSort/standard-8             940           1272137 ns/op
+PASS
+ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    2.729s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Пожалуй лучше использовать стандартную библиотеку сортировки.</p>
+</div>
+<div class="paragraph">
+<p>Тесты производительности также могут показывать размер выделяемой в рамках операции памяти, а также количество запросов памяти. Это также может оказаться полезным при профилировании, но стоит помнить, что сбор этой информации замедляет выполнение кода, поэтому время выполнения операции будет уже не совсем «честным».</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_property_based_тесты">Property-based тесты</h3>
-
+<h3 id="_примеры_и_главный_тест">Примеры и главный тест</h3>
+<div class="paragraph">
+<p>При написании библиотеки оказывается полезно дать пример использования. Для этого в тестовых файлах можно добавлять примеры. Описываются они как обычные функции в тестовых файлах, с названием, начинающимся на <code>Example</code>. Например, мы можем переделать в пример нашу функцию <code>main</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">ExampleInsertSort</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">12</span><span class="tok-p">,</span> <span class="tok-mi">8</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">,</span> <span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">1</span><span class="tok-p">,</span> <span class="tok-mi">3</span><span class="tok-p">}</span>
+    <span class="tok-nx">InsertSort</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+    <span class="tok-c1">// Output: [1 3 8 11 12 22]</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Такой пример будет не только примером, но при запуске тестов он будет также выполняться как тест и результат вывода будет сравниваться со строкой в комментарии <code>// Output</code>. В некоторых случаях такой пример вполне достаточен как единственный тест.</p>
+</div>
+<div class="paragraph">
+<p>Также порой возникает необходимость выполнить дополнительные действия до запуска всех тестов и после. Например, для интеграционных тестов необходимо наполнить базу данных тестовыми данными и очистить в случае, если тесты прошли успешно. Или тесты могут быть дополнительно сконфигурированны с помощью переменных окружения или флагов запуска, соответственно до начала тестирования эти флаги необходимо прочитать и разложить в переменные конфигурации. В этом случае поможет специальная функция:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">TestMain</span><span class="tok-p">(</span><span class="tok-nx">m</span> <span class="tok-o">*</span><span class="tok-nx">testing</span><span class="tok-p">.</span><span class="tok-nx">M</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// setup flags if needed</span>
+    <span class="tok-nx">flag</span><span class="tok-p">.</span><span class="tok-nx">Parse</span><span class="tok-p">()</span>
+    <span class="tok-c1">// setup</span>
+    <span class="tok-nx">res</span> <span class="tok-o">:=</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">Run</span><span class="tok-p">()</span>
+    <span class="tok-c1">// tear down</span>
+    <span class="tok-nx">os</span><span class="tok-p">.</span><span class="tok-nx">Exit</span><span class="tok-p">(</span><span class="tok-nx">res</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если тестовые файлы содержат такую функцию, то при выполнении команды <code>go test</code> будет выполнена только эта функция. Метод <code>m.Run</code> выполнит все тесты в пакете (по фильтру, если таковой указан). Если все тесты пройденны успешно, то <code>m.Run()</code> вернёт 0, в другом случае вернётся код выхода, отличный от нуля. Этот результат необходимо использовать в команде <code>os.Exit</code>.</p>
+</div>
+<div class="paragraph">
+<p>Стоит помнить, что при наличии функции <code>TestMain</code> флаги запуска не будут разобраны автоматически, необходимо явно вызвать функцию <code>flag.Parse()</code>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_задача_оптимизация_сортировки_вставками_бинарным_поиском">Задача: оптимизация сортировки вставками бинарным поиском</h3>
-
+<div class="paragraph">
+<p>Добавьте оптимизации в функцию сортировки <code>InsertSort</code> и сравните производительность:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>используйте функцию <code>copy</code>;</p>
+</li>
+<li>
+<p>используйте бинарный поиск места вставки;</p>
+</li>
+<li>
+<p>используйте экспоненциальный поиск места вставки;</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -2931,6 +3435,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_дополнительно">Дополнительно</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="_стандартная_библиотека">Стандартная библиотека</h3>
+<div class="sect3">
+<h4 id="_fmt">fmt</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_time">time</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_http">http</h4>
+
+</div>
+</div>
+<div class="sect2">
 <h3 id="_обработка_ошибок">Обработка ошибок</h3>
 
 </div>
@@ -2998,7 +3517,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.1.0<br>
-Last updated 2020-02-10 09:18:56 +0400
+Last updated 2020-02-12 16:20:47 +0400
 </div>
 </div>
 <style>
