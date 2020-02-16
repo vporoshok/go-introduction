@@ -3351,13 +3351,158 @@ ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    2.729s</
 <div class="sect1">
 <h2 id="_ооп_в_go">ООП в Go</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Вопрос о том является ли Go объектно ориентированным или нет достаточно спорный. Кто-то скажет, что да, кто-то — нет. В целом можно сказать, что Go всё же процедурный язык, а все концепции ООП в нём являются лишь синтаксическим сахаром. Именно из-за этого многие шаблоны, распространённые в ООП языках не всегда применимы в Go. Разрабатывая на Go нужно помнить о том, что</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Clear is better than clever.
+</blockquote>
+<div class="attribution">
+&#8212; Rob Pike
+</div>
+</div>
+<div class="paragraph">
+<p>Не старайтесь скрывать логику программы за сложными конструкциями, оставляйте код максимально чистым и понятным.</p>
+</div>
 <div class="sect2">
 <h3 id="_методы">Методы</h3>
+<div class="paragraph">
+<p>Первая ложка сахара, предоставляемая языком — методы. К любому пользовательскому типу (кроме интерфейсов, но об этом позже) можно добавить метод. Для этого в том же пакете, где объявлен тип нужно определить функцию следующего вида:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">PowerInt</span> <span class="tok-kt">int</span>
 
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-nx">PowerInt</span><span class="tok-p">)</span> <span class="tok-nx">Power</span><span class="tok-p">(</span><span class="tok-nx">n</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-nx">res</span> <span class="tok-nx">PowerInt</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">for</span> <span class="tok-nx">res</span> <span class="tok-p">=</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">n</span> <span class="tok-p">&gt;</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">n</span><span class="tok-o">--</span> <span class="tok-p">{</span>
+        <span class="tok-nx">res</span> <span class="tok-o">*=</span> <span class="tok-nx">x</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">res</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Полученная функция будет методом типа <code>PowerInt</code> и вызвать её можно будет следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">PowerInt</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">x</span><span class="tok-p">.</span><span class="tok-nx">Power</span><span class="tok-p">(</span><span class="tok-mi">8</span><span class="tok-p">))</span> <span class="tok-c1">// 256</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Но по сути это будет функция от двух переменных, со специальным префиксом после компиляции, для того, чтобы не было конфликтов в глобальном пространстве имён пакета.</p>
+</div>
+<div class="paragraph">
+<p>Помимо методов, объявленных на самом типе, можно определить метод на указателе:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">PowerInt</span> <span class="tok-kt">int</span>
+
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">*</span><span class="tok-nx">PowerInt</span><span class="tok-p">)</span> <span class="tok-nx">Power</span><span class="tok-p">(</span><span class="tok-nx">n</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">for</span> <span class="tok-nx">y</span> <span class="tok-o">:=</span> <span class="tok-o">*</span><span class="tok-nx">x</span><span class="tok-p">;</span> <span class="tok-nx">n</span> <span class="tok-p">&gt;</span> <span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">n</span><span class="tok-o">--</span> <span class="tok-p">{</span>
+        <span class="tok-o">*</span><span class="tok-nx">x</span> <span class="tok-o">*=</span> <span class="tok-nx">y</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Тогда этот метод можно вызвать как на указателе, так и на переменной типа <code>PowerInt</code>, при этом в момент вызова в функцию будет передан указатель на эту переменную, а значит изменения в методе изменят эту переменную:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">PowerInt</span><span class="tok-p">(</span><span class="tok-mi">2</span><span class="tok-p">)</span>
+<span class="tok-nx">x</span><span class="tok-p">.</span><span class="tok-nx">Power</span><span class="tok-p">(</span><span class="tok-mi">8</span><span class="tok-p">)</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">x</span><span class="tok-p">)</span> <span class="tok-c1">// 256</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_наследование">Наследование</h3>
+<div class="paragraph">
+<p>Конечно, говоря объекты, мы подразумеваем совокупность данных и методов. Чаще всего для хранения данных используется структура, к которой добавлены методы. Приведём стандартный пример:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Monster</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">HitPoints</span>   <span class="tok-kt">int</span>
+    <span class="tok-nx">AttackBonus</span> <span class="tok-kt">int</span>
+    <span class="tok-nx">ArmorClass</span>  <span class="tok-kt">int</span>
+<span class="tok-p">}</span>
 
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">m</span> <span class="tok-o">*</span><span class="tok-nx">Monster</span><span class="tok-p">)</span> <span class="tok-nx">Attack</span><span class="tok-p">()</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">rand</span><span class="tok-p">.</span><span class="tok-nx">Intn</span><span class="tok-p">(</span><span class="tok-mi">20</span><span class="tok-p">)</span> <span class="tok-o">+</span> <span class="tok-mi">1</span> <span class="tok-o">+</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">AttackBonus</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">m</span> <span class="tok-o">*</span><span class="tok-nx">Monster</span><span class="tok-p">)</span> <span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-mi">10</span> <span class="tok-o">+</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">ArmorClass</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для структур также поддерживается некоторое подобие наследования:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Armadillo</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Monster</span>
+    <span class="tok-nx">HanukkahBonus</span> <span class="tok-kt">bool</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Мы просто включили тип <code>Monster</code> в описании структуры <code>Armadillo</code>. Таким образом с одной стороны мы добавили в описание поле с типом <code>Monster</code> и именем <code>Monster</code>. При этом, к полям этого поля можно обращаться без указания <code>Monster</code> (если, уровнем выше нет полей с таким же именем):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-nx">Armadillo</span><span class="tok-p">{}</span>
+<span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">ArmorClass</span> <span class="tok-p">=</span> <span class="tok-mi">3</span> <span class="tok-c1">// ~ a.Monster.ArmorClass = 3</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Аналогично можно вызывать и методы вложенного типа:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">Attack</span><span class="tok-p">()</span> <span class="tok-c1">// ~ a.Monster.Attack()</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>С другой стороны можно переопределить методы в «наследнике»:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-nx">Armadillo</span><span class="tok-p">)</span> <span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-nx">defence</span> <span class="tok-o">:=</span> <span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">Monster</span><span class="tok-p">.</span><span class="tok-nx">Defence</span><span class="tok-p">()</span>
+    <span class="tok-k">if</span> <span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">HanukkahBonus</span> <span class="tok-p">{</span>
+        <span class="tok-nx">defence</span> <span class="tok-o">+=</span> <span class="tok-mi">10</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">defence</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Но, это всего лишь сахар, никакой дополнительной магии здесь не может произойти. Так, например, если мы определим на типе <code>Monster</code> другой метод, использующий метод <code>Defence</code>, то вызов его на переменной типа <code>Armadillo</code> вызовет не переопределённый метод:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">m</span> <span class="tok-nx">Monster</span><span class="tok-p">)</span> <span class="tok-nx">CMD</span><span class="tok-p">()</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">AttackBonus</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">HanukkahBonus</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+<span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-c1">// 23</span>
+<span class="tok-nx">a</span><span class="tok-p">.</span><span class="tok-nx">CMD</span><span class="tok-p">()</span> <span class="tok-c1">// 13</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Таким образом это больше похоже на композицию, а не наследование. Однако, с помощью интерфейса можно сделать полиморфизм.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_интерфейсы_и_полиморфизм">Интерфейсы и полиморфизм</h3>
@@ -3386,7 +3531,7 @@ ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    2.729s</
 <div class="sect2">
 <h3 id="_соглашения">Соглашения</h3>
 <div class="paragraph">
-<p>internal, vendor, cmd, lib</p>
+<p>internal, vendor, cmd, lib, x</p>
 </div>
 </div>
 <div class="sect2">

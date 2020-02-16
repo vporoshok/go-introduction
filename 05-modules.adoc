@@ -8,7 +8,7 @@
 
 === Соглашения
 
-internal, vendor, cmd, lib
+internal, vendor, cmd, lib, x
 
 === Задача: развязать циклические зависимости
 
