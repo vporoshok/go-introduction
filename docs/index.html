@@ -484,6 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_методы">Методы</a></li>
 <li><a href="#_наследование">Наследование</a></li>
 <li><a href="#_интерфейсы_и_полиморфизм">Интерфейсы и полиморфизм</a></li>
+<li><a href="#_задания">Задания</a></li>
 </ul>
 </li>
 <li><a href="#_пакеты_и_модули">Пакеты и модули</a>
@@ -2663,7 +2664,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">counts</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">counts</span> <span class="tok-o">:=</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">{}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2671,7 +2672,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
     <span class="tok-nx">userCounts</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">userID</span><span class="tok-p">]</span>
     <span class="tok-k">if</span> <span class="tok-p">!</span><span class="tok-nx">ok</span> <span class="tok-p">{</span>
         <span class="tok-nx">userCounts</span> <span class="tok-p">=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">)</span>
@@ -2697,7 +2698,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">][</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">inc</span><span class="tok-p">(</span><span class="tok-nx">counts</span> <span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-nx">CountKey</span><span class="tok-p">]</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span> <span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">{</span>
     <span class="tok-nx">counts</span><span class="tok-p">[</span><span class="tok-nx">CountKey</span><span class="tok-p">{</span><span class="tok-nx">userID</span><span class="tok-p">,</span> <span class="tok-nx">chatID</span><span class="tok-p">}]</span><span class="tok-o">++</span>
 <span class="tok-p">}</span></code></pre>
 </div>
@@ -3506,9 +3507,240 @@ Clear is better than clever.
 </div>
 <div class="sect2">
 <h3 id="_интерфейсы_и_полиморфизм">Интерфейсы и полиморфизм</h3>
+<div class="paragraph">
+<p>Итак, уже много раз упомянутые интерфейсы. Интерфейс это специальный тип, который описывает какие методы должны быть у объекта, для того, чтобы объект удовлетворял интерфейсу. Описывается он следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Creature</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Attack</span><span class="tok-p">()</span> <span class="tok-kt">int</span>
+    <span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-kt">int</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это означает, что у объекта, удовлетворяющего этому интерфейсу есть два метода: <code>Attack</code> и <code>Defence</code>. Оба не принимают никаких аргументов и возвращают <code>int</code>. То есть описанные выше типы <code>Monster</code> и <code>Armadillo</code> удовлетворяют этому интерфейсу. Отлично! Что дальше? Теперь мы можем в определении переменных (в том числе и аргументов функции использовать этот тип). Соответственно функцию расчёта Combat Maneuver Defense мы можем описать как внешнюю функцию, добавив в интерфейс и реализации дополнительный метод:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Creature</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Attack</span><span class="tok-p">()</span> <span class="tok-kt">int</span>
+    <span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-kt">int</span>
+    <span class="tok-nx">GetAttackBonus</span><span class="tok-p">()</span> <span class="tok-kt">int</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">m</span> <span class="tok-nx">Monster</span><span class="tok-p">)</span> <span class="tok-nx">GetAttackBonus</span><span class="tok-p">()</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">AttackBonus</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">CMD</span><span class="tok-p">(</span><span class="tok-nx">c</span> <span class="tok-nx">Creature</span><span class="tok-p">)</span> <span class="tok-kt">int</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-nx">c</span><span class="tok-p">.</span><span class="tok-nx">Defence</span><span class="tok-p">()</span> <span class="tok-o">+</span> <span class="tok-nx">m</span><span class="tok-p">.</span><span class="tok-nx">GetAttackBonus</span><span class="tok-p">()</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Таким образом реализуется полиморфизм в языке Go.</p>
+</div>
+<div class="sect3">
+<h4 id="_правила_этикета_интерфейсов">Правила этикета интерфейсов</h4>
+<div class="paragraph">
+<p>Как и всё, что связано с ООП, тема интерфейсов неоднозначна и периодически вызывает холивары. О видении самих разработчиков можно прочитать в статье <a href="https://github.com/golang/go/wiki/CodeReviewComments">Go Code Review Comments</a> в вики проекта на <a href="https://github.com/golang/go" class="bare">https://github.com/golang/go</a>. Мы же рассмотрим имеющиеся ограничения как данность.</p>
+</div>
+<div class="paragraph">
+<p>Первое о чём необходимо помнить, это то, что интерфейсы описывают только методы, никаких свойств объектов, только поведение. Когда мы говорим «плоская геометрическая фигура», мы не можем говорить о её радиусе или длине диагонали, однако мы можем говорить о том, что фигура имеет площадь или диаметр (максимальная длина отрезка, вмещающегося в эту фигуру). Также, например, для формирования отчёта по факту не нужны фамилия, имя и отчество объекта пользователь, необходимо, чтобы этот объект мог сериализоваться в строку.</p>
+</div>
+<div class="paragraph">
+<p>Go не содержит классов и негде написать привычное многим слово <code>implements</code>. Соответствие интерфейсу производится в момент присвоения объекта переменной с типом интерфейс (в том числе при вызове функции). Этот факт многих смущает, ведь для того, чтобы написать реализацию интерфейса хочется видеть соответствие получающегося объекта интерфейсу. Здесь же мы увидим ошибку на строке присвоения или вызова функции, но не рядом с реализацией.</p>
+</div>
+<div class="paragraph">
+<p>Хорошим тоном считается писать маленькие интерфейсы рядом с использованием. То есть, если ваш код требует всего один метод от сущности, опишите рядом с ним интерфейс с одним методом и используйте его. Другой одобряемой практикой является описание интерфейсов рядом с местом использования, а не рядом с имплементацией, потому что интерфейс в Go это контракт вызываемой стороны, а не вызывающей.</p>
+</div>
+<div class="paragraph">
+<p>В Go вместо конструкторов используются обычные функции, не привязанные к типу. Даже если сейчас конструктор используется исключительно для того, чтобы вернуть сущность, удовлетворяющую интерфейсу, по возможности возвращайте конкретный тип, а не интерфейс, то есть вместо</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">NewArmadillo</span><span class="tok-p">()</span> <span class="tok-nx">Creature</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>пишите</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">NewArmadillo</span><span class="tok-p">()</span> <span class="tok-o">*</span><span class="tok-nx">Armadillo</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Особенно, если интерфейс лежит в другом пакете.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_interface">interface{}</h4>
+<div class="paragraph">
+<p>Конструкция <code>interface{}</code> описывает объект без методов. Такому интерфейсу удовлетворяет всё, что угодно. Это некоторая замена <code>any</code> или <code>unknown</code> из других языков. Такой тип часто используют для определения аргументов функций, которые могут обрабатывать несколько типов. Например, функция <code>fmt.Println</code> принимает сколько угодно каких угодно аргументов и имеет объявление</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">args</span> <span class="tok-o">...</span><span class="tok-kd">interface</span><span class="tok-p">{})</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// ...</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_кастинг_типа">Кастинг типа</h4>
+<div class="paragraph">
+<p>Когда же возникает необходимость определить тип, спрятанный за интерфейсом, можно воспользоваться кастингом типов. Если вы абсолютно точно уверены какой тип спрятан под интерфейсом, то можно просто явно привести к конкретному типу (в том числе и к другому интерфейсу):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">y</span><span class="tok-p">.(</span><span class="tok-kt">float64</span><span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Однако, если под <code>y</code> окажется спрятана переменная другого типа, то программа упадёт с ошибкой. Для того, чтобы проверить, действительно ли переменная имеет этот тип, можно воспользоваться формой</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">if</span> <span class="tok-nx">x</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">y</span><span class="tok-p">.(</span><span class="tok-kt">float64</span><span class="tok-p">);</span> <span class="tok-nx">ok</span> <span class="tok-p">{</span>
+    <span class="tok-c1">// do something with x</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если же для разных типов необходимо вести себя по разному, можно воспользоваться специальной формой конструкции <code>switch</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-k">switch</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">y</span><span class="tok-p">.(</span><span class="tok-kd">type</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+<span class="tok-k">case</span> <span class="tok-kt">float64</span><span class="tok-p">:</span>
+    <span class="tok-c1">// do something with x like float64</span>
+<span class="tok-k">case</span> <span class="tok-kt">int</span><span class="tok-p">:</span>
+    <span class="tok-c1">// do something with x like int</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Например, можно сделать суммирование любых чисел следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">sum</span><span class="tok-p">(</span><span class="tok-nx">args</span> <span class="tok-o">...</span><span class="tok-kd">interface</span><span class="tok-p">{})</span> <span class="tok-p">(</span><span class="tok-nx">res</span> <span class="tok-kt">float64</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">switch</span> <span class="tok-nx">x</span> <span class="tok-o">:=</span> <span class="tok-nx">args</span><span class="tok-p">.(</span><span class="tok-kd">type</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">case</span> <span class="tok-kt">float64</span><span class="tok-p">:</span>
+        <span class="tok-nx">res</span> <span class="tok-o">+=</span> <span class="tok-nx">x</span>
+    <span class="tok-k">case</span> <span class="tok-kt">int</span><span class="tok-p">:</span>
+        <span class="tok-nx">res</span> <span class="tok-o">+=</span> <span class="tok-nx">x</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">res</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Инструкция <code>fallthrough</code> в данной конструкции не работает по очевидным причинам.</p>
+</div>
+<div class="paragraph">
+<p>При кастинге типа необходимо помнить про следующее ограничение: если переменная содержит значение типа <code>A</code>, который основан на типе <code>B</code>, то её можно скастить в тип <code>A</code>, но нельзя в <code>B</code>. Например</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">MyType</span> <span class="tok-kt">int</span>
+
+<span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kd">interface</span><span class="tok-p">{}</span> <span class="tok-p">=</span> <span class="tok-nx">MyType</span><span class="tok-p">(</span><span class="tok-mi">10</span><span class="tok-p">)</span>
+
+<span class="tok-nx">j</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">x</span><span class="tok-p">.(</span><span class="tok-nx">MyType</span><span class="tok-p">)</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">j</span><span class="tok-p">,</span> <span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-c1">// 10, true</span>
+
+<span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">ok</span> <span class="tok-o">:=</span> <span class="tok-nx">x</span><span class="tok-p">.(</span><span class="tok-kt">int</span><span class="tok-p">)</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">i</span><span class="tok-p">,</span> <span class="tok-nx">ok</span><span class="tok-p">)</span> <span class="tok-c1">// 0, false</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для более глубокого анализа значений и их типов необходимо использовать <a href="#_рефлексия">рефлексию</a>.</p>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_почему_nil_nil">Почему nil != nil?</h4>
+<div class="paragraph">
+<p>Ещё одна проблема связана со значением <code>nil</code>. Проблема заключается в том, что под капотом каждая переменная описывается значением и типом. Таким образом даже пустое значение, даже <code>nil</code> имеет тип. Чтобы было понятнее приведём пример:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">var</span> <span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-o">==</span> <span class="tok-kc">nil</span><span class="tok-p">)</span> <span class="tok-c1">// true</span>
+<span class="tok-kd">var</span> <span class="tok-nx">x</span> <span class="tok-kd">interface</span><span class="tok-p">{}</span> <span class="tok-p">=</span> <span class="tok-nx">a</span>
+<span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">x</span> <span class="tok-o">==</span> <span class="tok-kc">nil</span><span class="tok-p">)</span> <span class="tok-c1">// false</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В первом случае переменная <code>a</code> имеет тип срез и <code>nil</code> приводится к этому типу, соответственно сравнение оказывается истинным. Во втором же случае переменная <code>x</code> имеет тип интерфейс, но при этом значение всё тот же неинициализированный срез, правая часть сравнения приводится к типу интерфейсу и сравнение оказывается ложным. Сложности с этим часто возникают при создании кастомных ошибок на основе срезов, например:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">MyError</span> <span class="tok-p">[]</span><span class="tok-kt">string</span>
 
+<span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">merr</span> <span class="tok-nx">MyError</span><span class="tok-p">)</span> <span class="tok-nx">Error</span><span class="tok-p">()</span> <span class="tok-kt">string</span> <span class="tok-p">{</span>
+	<span class="tok-k">return</span> <span class="tok-nx">strings</span><span class="tok-p">.</span><span class="tok-nx">Join</span><span class="tok-p">(</span><span class="tok-nx">merr</span><span class="tok-p">,</span> <span class="tok-s">&quot;\n&quot;</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">Foo</span><span class="tok-p">(</span><span class="tok-nx">throwError</span> <span class="tok-kt">bool</span><span class="tok-p">)</span> <span class="tok-kt">error</span> <span class="tok-p">{</span>
+	<span class="tok-kd">var</span> <span class="tok-nx">merr</span> <span class="tok-nx">MyError</span>
+	<span class="tok-k">if</span> <span class="tok-nx">throwError</span> <span class="tok-p">{</span>
+		<span class="tok-nx">merr</span> <span class="tok-p">=</span> <span class="tok-nb">append</span><span class="tok-p">(</span><span class="tok-nx">merr</span><span class="tok-p">,</span> <span class="tok-s">&quot;Something went wrong&quot;</span><span class="tok-p">)</span>
+	<span class="tok-p">}</span>
+	<span class="tok-k">return</span> <span class="tok-nx">merr</span>
+<span class="tok-p">}</span>
+
+<span class="tok-k">if</span> <span class="tok-nx">err</span> <span class="tok-o">:=</span> <span class="tok-nx">Foo</span><span class="tok-p">(</span><span class="tok-kc">false</span><span class="tok-p">);</span> <span class="tok-nx">err</span> <span class="tok-o">!=</span> <span class="tok-kc">nil</span> <span class="tok-p">{</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-s">&quot;Unexpected error:&quot;</span><span class="tok-p">,</span> <span class="tok-nx">err</span><span class="tok-p">)</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном примере программа зайдёт в условие, потому что пустой срез будет сравниваться с интефейсным <code>nil</code>. Для того, чтобы избежать такой ситуации необходимо модифицировать программу следующим образом:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">Foo</span><span class="tok-p">(</span><span class="tok-nx">throwError</span> <span class="tok-kt">bool</span><span class="tok-p">)</span> <span class="tok-kt">error</span> <span class="tok-p">{</span>
+	<span class="tok-kd">var</span> <span class="tok-nx">merr</span> <span class="tok-nx">MyError</span>
+	<span class="tok-k">if</span> <span class="tok-nx">throwError</span> <span class="tok-p">{</span>
+		<span class="tok-nx">merr</span> <span class="tok-p">=</span> <span class="tok-nb">append</span><span class="tok-p">(</span><span class="tok-nx">merr</span><span class="tok-p">,</span> <span class="tok-s">&quot;Something went wrong&quot;</span><span class="tok-p">)</span>
+	<span class="tok-p">}</span>
+    <span class="tok-k">if</span> <span class="tok-nx">merr</span> <span class="tok-o">==</span> <span class="tok-kc">nil</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-kc">nil</span>
+    <span class="tok-p">}</span>
+	<span class="tok-k">return</span> <span class="tok-nx">merr</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном случае будет возвращён именно интерфейсный <code>nil</code>. Также полезным оказывается добавление специального метода к такой ошибке:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-p">(</span><span class="tok-nx">merr</span> <span class="tok-nx">MyError</span><span class="tok-p">)</span> <span class="tok-nx">ToError</span><span class="tok-p">()</span> <span class="tok-kt">error</span> <span class="tok-p">{</span>
+    <span class="tok-k">if</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">merr</span><span class="tok-p">)</span> <span class="tok-o">==</span> <span class="tok-mi">0</span> <span class="tok-p">{</span>
+        <span class="tok-k">return</span> <span class="tok-kc">nil</span>
+    <span class="tok-p">}</span>
+    <span class="tok-k">return</span> <span class="tok-nx">merr</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_задания">Задания</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Написать HTTP эхо сервис. На любой POST запрос он должен возвращать тело запроса как ответ.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>

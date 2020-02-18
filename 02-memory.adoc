@@ -591,13 +591,13 @@ func unique(a []int) []int {
 Часто возникает задача разграничивать данные по нескольким признакам. Пусть, например, мы пишем систему групповых чатов, и нам необходимо кешировать счётчики непрочитанных сообщений. Для каждого пользователя и для каждого чата. Первое, что приходит в голову это сделать хеш-таблицу хеш-таблиц:
 [source,go]
 ----
-counts := map[int][int]int{}
+counts := map[int]map[int]int{}
 ----
 
 На первом уровне мы будем по идентификатору пользователя находить таблицу, в которой по идентификатору чата находить количество непрочитанных сообщений. При таком подходе возникает сложность при добавлении счётчика, потому что, необходимо выполнить дополнительную проверку: существует ли вложенная таблица для пользователя или необходимо создать новую:
 [source,go]
 ----
-func inc(counts map[int][int]int, userID, chatID int) {
+func inc(counts map[int]map[int]int, userID, chatID int) {
     userCounts, ok := counts[userID]
     if !ok {
         userCounts = make(map[int]int)
@@ -619,7 +619,7 @@ counts := map[CountKey]int{}
 Тогда увеличение счётчика больше не требует дополнительных проверок:
 [source,go]
 ----
-func inc(counts map[int][int]int, userID, chatID int) {
+func inc(counts map[CountKey]int, userID, chatID int) {
     counts[CountKey{userID, chatID}]++
 }
 ----
