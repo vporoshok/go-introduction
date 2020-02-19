@@ -701,11 +701,11 @@ include::examples/07_insert_sort/main.go[]
 func unique(a []int) []int {
     set := make(map[int]bool, len(a))
     for i := len(a)-1; i >= 0; i-- {
-        if set[x] {
-           copy(a[:i], a[:i+1])
+        if set[a[i]] {
+           copy(a[i:], a[i+1:])
            a = a[:len(a)-1]
         }
-        set[x] = true
+        set[a[i]] = true
     }
     return a
 }

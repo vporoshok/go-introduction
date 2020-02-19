@@ -10,3 +10,6 @@
 - [[[shad]]] Максим Бабенко. _Алгоритмы и структуры данных._
   Учебный курс (видеолекции). — М.: Яндекс, 2012.
   https://yandexdataschool.ru/edu-process/courses/algorithms
+- [[[cag]]] Евгений Бастрыков. _Чистая архитектура на Go._
+  Статья в блоге. — 2018.
+  https://vporoshok.me/post/2018/04/clean-architect/

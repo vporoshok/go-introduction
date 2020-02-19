@@ -152,6 +152,46 @@ func CMD(c Creature) int {
 
 Таким образом реализуется полиморфизм в языке Go.
 
+.Наследование интерфейсов
+****
+Описание интерфейсов напоминают описание структур. И возникает вопрос: а можно ли включить один интерфейс в другой, также как мы делали это со структурами? Ответ можно:
+[source,go]
+----
+type Reader interface {
+    Read([]byte) (int, error)
+}
+
+type Writer interface {
+    Write([]byte) (int, error)
+}
+
+type ReadWriter interface {
+    Reader
+    Writer
+}
+----
+
+Получившийся интерфейс будет описывать объекты с двумя методами: `Read` и `Write`. Правда до версии 1.14 нельзя объединить пересекающиеся по методам интерфейсы, то есть код
+[source,go]
+----
+type Closer interface {
+    Close() error
+}
+
+type ReadCloser interface {
+    Reader
+    Closer
+}
+
+type ReadWriteCloser interface {
+    ReadWriter
+    ReadCloser
+}
+----
+
+Выдаст ошибку на этапе компиляции: duplicate method Read.
+****
+
 ==== Правила этикета интерфейсов
 
 Как и всё, что связано с ООП, тема интерфейсов неоднозначна и периодически вызывает холивары. О видении самих разработчиков можно прочитать в статье https://github.com/golang/go/wiki/CodeReviewComments[Go Code Review Comments] в вики проекта на https://github.com/golang/go. Мы же рассмотрим имеющиеся ограничения как данность.
@@ -307,4 +347,4 @@ func (merr MyError) ToError() error {
 
 === Задания
 
-1. Написать HTTP эхо сервис. На любой POST запрос он должен возвращать тело запроса как ответ.
+. Написать HTTP эхо сервис. На любой POST запрос он должен возвращать тело запроса как ответ.

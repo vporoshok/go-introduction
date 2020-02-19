@@ -24,7 +24,8 @@ include::04-oop.adoc[]
 
 include::05-modules.adoc[]
 
-include::06-concurrent.adoc[]
+
+// include::06-concurrent.adoc[]
 
 include::98-extras.adoc[]
 

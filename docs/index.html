@@ -489,21 +489,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_пакеты_и_модули">Пакеты и модули</a>
 <ul class="sectlevel2">
+<li><a href="#_модули">Модули</a></li>
 <li><a href="#_публичные_и_приватные_сущности">Публичные и приватные сущности</a></li>
 <li><a href="#_циклические_зависимости">Циклические зависимости</a></li>
-<li><a href="#_модули">Модули</a></li>
+<li><a href="#_тесты_в_отдельном_пакете">Тесты в отдельном пакете</a></li>
 <li><a href="#_соглашения">Соглашения</a></li>
-<li><a href="#_задача_развязать_циклические_зависимости">Задача: развязать циклические зависимости</a></li>
-<li><a href="#_стандартные_и_экспериментальные_пакеты">Стандартные и экспериментальные пакеты</a></li>
-</ul>
-</li>
-<li><a href="#_конкурентное_программирование">Конкурентное программирование</a>
-<ul class="sectlevel2">
-<li><a href="#_go_рутины">Go-рутины</a></li>
-<li><a href="#_конкурентный_доступ_к_памяти">Конкурентный доступ к памяти</a></li>
-<li><a href="#_csp_communicating_sequential_processes">CSP (Communicating sequential processes)</a></li>
-<li><a href="#_ожидание_завершения">Ожидание завершения</a></li>
-<li><a href="#_прерывание_пула_go_рутин">Прерывание пула go-рутин</a></li>
 </ul>
 </li>
 <li><a href="#_дополнительно">Дополнительно</a>
@@ -1868,7 +1858,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Переменные такого типа не будут занимать память для данных, но сохранят привязку к типу. Это может пригодиться, например, для построения множеств с помощью <a href="#_хеш_таблицы">хеш-таблиц</a> или как приватный ключ для данных в <a href="#_context">контексте</a>.</p>
+<p>Переменные такого типа не будут занимать память для данных, но сохранят привязку к типу. Это может пригодиться, например, для построения множеств с помощью <a href="#_хеш_таблицы">хеш-таблиц</a> или как приватный ключ для данных в <a href="#Context">контексте</a>.</p>
 </div>
 </div>
 </div>
@@ -2845,11 +2835,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">func</span> <span class="tok-nx">unique</span><span class="tok-p">(</span><span class="tok-nx">a</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">)</span> <span class="tok-p">[]</span><span class="tok-kt">int</span> <span class="tok-p">{</span>
     <span class="tok-nx">set</span> <span class="tok-o">:=</span> <span class="tok-nb">make</span><span class="tok-p">(</span><span class="tok-kd">map</span><span class="tok-p">[</span><span class="tok-kt">int</span><span class="tok-p">]</span><span class="tok-kt">bool</span><span class="tok-p">,</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">))</span>
     <span class="tok-k">for</span> <span class="tok-nx">i</span> <span class="tok-o">:=</span> <span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">;</span> <span class="tok-nx">i</span> <span class="tok-o">&gt;=</span> <span class="tok-mi">0</span><span class="tok-p">;</span> <span class="tok-nx">i</span><span class="tok-o">--</span> <span class="tok-p">{</span>
-        <span class="tok-k">if</span> <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">{</span>
-           <span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nx">i</span><span class="tok-p">],</span> <span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nx">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">])</span>
+        <span class="tok-k">if</span> <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]]</span> <span class="tok-p">{</span>
+           <span class="tok-nb">copy</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">:],</span> <span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-o">+</span><span class="tok-mi">1</span><span class="tok-p">:])</span>
            <span class="tok-nx">a</span> <span class="tok-p">=</span> <span class="tok-nx">a</span><span class="tok-p">[:</span><span class="tok-nb">len</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span><span class="tok-o">-</span><span class="tok-mi">1</span><span class="tok-p">]</span>
         <span class="tok-p">}</span>
-        <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">x</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
+        <span class="tok-nx">set</span><span class="tok-p">[</span><span class="tok-nx">a</span><span class="tok-p">[</span><span class="tok-nx">i</span><span class="tok-p">]]</span> <span class="tok-p">=</span> <span class="tok-kc">true</span>
     <span class="tok-p">}</span>
     <span class="tok-k">return</span> <span class="tok-nx">a</span>
 <span class="tok-p">}</span></code></pre>
@@ -3035,7 +3025,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>на 29-й строке выполняется запуск вложенного теста. С помощью вложенных тестов удобно организовывать сложные сценарии тестирования. Идея подтестов заключается в том, что при провале такого теста остальные тесты выполняться независимо, но родительский тест также будет помечен как проваленный. При этом <code>t.Run</code> возвращает <code>false</code> при провале вложенного теста, так что с использованием этой концепции легко построить и сценарные тесты, отделив логические шаги друг от друга, но сохранив последовательность шагов и прервать выполнение теста при провале одного из шагов.</p>
+<p>на 29-й строке выполняется запуск вложенного теста. С помощью вложенных тестов удобно организовывать сложные сценарии тестирования. Идея подтестов заключается в том, что при провале такого теста остальные тесты выполнятся независимо, но родительский тест также будет помечен как проваленный. При этом <code>t.Run</code> возвращает <code>false</code> при провале вложенного теста, так что с использованием этой концепции легко построить и сценарные тесты, отделив логические шаги друг от друга, но сохранив последовательность шагов и прервать выполнение теста при провале одного из шагов.</p>
 </li>
 <li>
 <p>на 37-й строке вызывается специальный метод <code>t.Helper()</code>. Этот метод исключает эту функцию из трейса ошибки. Таким образом, если, например, у срезов будет разная длинна, то в логах будет показано, что ошибка возникла не на 39 строке, а на 31. В данном случае это не особо меняет дело, но если такая вспомогательная функция используется в нескольких местах, то удобно видеть в каком именно месте использования она вернула ошибку.</p>
@@ -3322,7 +3312,7 @@ ok      github.com/vporoshok/go-introduction/examples/07_insert_sort    2.729s</
 </div>
 </div>
 <div class="paragraph">
-<p>Если тестовые файлы содержат такую функцию, то при выполнении команды <code>go test</code> будет выполнена только эта функция. Метод <code>m.Run</code> выполнит все тесты в пакете (по фильтру, если таковой указан). Если все тесты пройденны успешно, то <code>m.Run()</code> вернёт 0, в другом случае вернётся код выхода, отличный от нуля. Этот результат необходимо использовать в команде <code>os.Exit</code>.</p>
+<p>Если тестовые файлы содержат такую функцию, то при выполнении команды <code>go test</code> будет выполнена только эта функция. Метод <code>m.Run</code> выполнит все тесты в пакете (по фильтру, если таковой указан). Если все тесты пройдены успешно, то <code>m.Run()</code> вернёт 0, в другом случае вернётся код выхода, отличный от нуля. Этот результат необходимо использовать в команде <code>os.Exit</code>.</p>
 </div>
 <div class="paragraph">
 <p>Стоит помнить, что при наличии функции <code>TestMain</code> флаги запуска не будут разобраны автоматически, необходимо явно вызвать функцию <code>flag.Parse()</code>.</p>
@@ -3541,6 +3531,53 @@ Clear is better than clever.
 <div class="paragraph">
 <p>Таким образом реализуется полиморфизм в языке Go.</p>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Наследование интерфейсов</div>
+<div class="paragraph">
+<p>Описание интерфейсов напоминают описание структур. И возникает вопрос: а можно ли включить один интерфейс в другой, также как мы делали это со структурами? Ответ можно:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Reader</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Read</span><span class="tok-p">([]</span><span class="tok-kt">byte</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-kt">error</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">type</span> <span class="tok-nx">Writer</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Write</span><span class="tok-p">([]</span><span class="tok-kt">byte</span><span class="tok-p">)</span> <span class="tok-p">(</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-kt">error</span><span class="tok-p">)</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">type</span> <span class="tok-nx">ReadWriter</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Reader</span>
+    <span class="tok-nx">Writer</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Получившийся интерфейс будет описывать объекты с двумя методами: <code>Read</code> и <code>Write</code>. Правда до версии 1.14 нельзя объединить пересекающиеся по методам интерфейсы, то есть код</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">Closer</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Close</span><span class="tok-p">()</span> <span class="tok-kt">error</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">type</span> <span class="tok-nx">ReadCloser</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">Reader</span>
+    <span class="tok-nx">Closer</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kd">type</span> <span class="tok-nx">ReadWriteCloser</span> <span class="tok-kd">interface</span> <span class="tok-p">{</span>
+    <span class="tok-nx">ReadWriter</span>
+    <span class="tok-nx">ReadCloser</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Выдаст ошибку на этапе компиляции: duplicate method Read.</p>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_правила_этикета_интерфейсов">Правила этикета интерфейсов</h4>
 <div class="paragraph">
@@ -3748,62 +3785,196 @@ Clear is better than clever.
 <div class="sect1">
 <h2 id="_пакеты_и_модули">Пакеты и модули</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_публичные_и_приватные_сущности">Публичные и приватные сущности</h3>
-
+<div class="paragraph">
+<p>Помните, что первой строкой каждого файла с кодом на Go является строка вида</p>
 </div>
-<div class="sect2">
-<h3 id="_циклические_зависимости">Циклические зависимости</h3>
-
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kn">package</span> <span class="tok-nx">main</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Эта строка декларирует имя пакета. Весь код, лежащий в одной папке должен принадлежать одному пакету. Это означает, что во всех файлах внутри папки должна быть одинаковая строка объявления пакета. Кроме файлов с тестами, но об этом немного позже. Внутри пакета все функции, типы и глобальные переменные и константы доступны в любом файле без префиксов как в Erlang, то есть нет нужды импортировать рядом лежащий файл, как в NodeJS или Python. С одной стороны это удобно, с другой стороны с непривычки может путать, но при наличии редакторов с поддержкой перехода к определению к этому достаточно легко привыкнуть и приспособиться.</p>
+</div>
+<div class="paragraph">
+<p>Стандартной практикой является называть пакет именем папки, в которой он лежит. Это, конечно, не относится к пакетам <code>main</code>, которые являются точками входа и вряд ли будут импортироваться в другие пакеты. К именам пакетов, также как и к переменным, <code>golint</code> предъявляет требования соответствовать <code>camelCase</code>. Но при учёте того, что некоторые файловые системы нечуствительны к регистру, лучше вообще называть пакеты строчными буквами, не прибегая к другим символам.</p>
+</div>
+<div class="paragraph">
+<p>Несмотря на короткое название пакета, использования его в другом пакете не так очевидно. Для того, чтобы с этим разобраться необходимо перейти к понятию модуля.</p>
 </div>
 <div class="sect2">
 <h3 id="_модули">Модули</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Язык проектировался и развивается силами разработчиков из компании Google, что накладывает некоторые отпечатки. Одним из таких отпечатков является то, что внутри компании используется монорепозиторий, то есть весь код всех отделов компании лежит в одном большом репозитории. Отчасти из-за этого история модулей в языке получилась такая, какая получилась.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_вначале_был_gopath">Вначале был $GOPATH</h4>
+<div class="paragraph">
+<p>С самой первой версии для работы с языком было необходимо настроить переменную окружения <code>$GOPATH</code>. Принцип работы этой переменной вызывало максимальное непонимание для новичков в языке, так что в итоге в версии 1.8 для этой переменной ввели значение по умолчанию (<code>~/go</code>), а начиная с версии 1.12 можно работать вообще не зная ничего об этой переменной. Однако, давайте всё же разберёмся — как она работает.</p>
+</div>
+<div class="paragraph">
+<p>Переменная <code>$GOPATH</code> должна содержать путь к директории, в которой будет хранится информация обо всех сторонних пакетах, в том числе и разрабатываемых. Внутри этой директории будет созданы три директории: <code>src</code>, <code>pkg</code> и <code>bin</code>. В последнюю будут автоматически попадать скомпилированные исполняемые файлы, при установке пакетов, собирающихся в таковые. Например, если установить пакет <a href="https://godoc.org/golang.org/x/tools/cmd/stringer">stringer</a>, из него будет собран исполняемый файл <code>stringer</code>. В директории <code>pkg</code> будет собираться кеш версий различных библиотек, а также промежуточные артефакты компиляций. Наконец, директория <code>src</code> содержит исходный код пакетов и модулей. Начиная с версии 1.13, установка пакета сохраняет его исходные коды только в <code>pkg</code>, так что в <code>src</code> остались только разрабатываемые вами исходные коды. И полное имя пакета для импорта совпадает с путём до пакета относительно директории <code>src</code>. Таким образом, если в директории <code>src</code> создать директорию <code>foo/bar</code>, в которую положить go-файлы, то для импорта этого пакета в другом пакете в директиве <code>import</code> будет необходимо прописать строку <code>"foo/bar"</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_сторонние_библиотеки">Сторонние библиотеки</h4>
+<div class="paragraph">
+<p>Для установки сторонних библиотек с самой первой версии существует команда <code>go get &lt;имя пакета&gt;</code>. В качестве источников пакетов используются git-репозитории, например, <a href="https://github.com" class="bare">https://github.com</a> или <a href="https://golang.org" class="bare">https://golang.org</a>. Собственно для установки того же пакета <code>stringer</code> в консоли необходимо выполнить</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>go get golang.org/x/tools/cmd/stringer</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Эта команда выполнит следующее:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>создаст директорию <code>$GOPATH/src/golang.org/x/tools/cmd/stringer</code>;</p>
+</li>
+<li>
+<p>склонирует туда дефолтную ветку этого репозитория;</p>
+</li>
+<li>
+<p>если в пакете есть подпакет <code>main</code>, скомпилирует исполняемый файл и положит его в <code>$GOPATH/bin</code>;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Для обновления можно использовать дополнительный флаг <code>-u</code>. А после внесения изменений можно пересобрать исполняемый файл с помощью команды</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>go install golang.org/x/tools/cmd/stringer</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При этом <code>src</code> будет лежать полноценный git-репозиторий, как есть.</p>
+</div>
+<div class="paragraph">
+<p>Если одна библиотека использовала другую, то при установке устанавливались и зависимости. Конечно без всякого версионирования, просто последний коммит из master-ветки. Но что хорошо для монорепозитория, плохо для большого распределённого сообщества. Так в версии 1.5 появилась поддержка специальной папки <code>vendor</code>, содержащей в себе зависимости. Также правилом хорошего тона стало включение этой папки в репозитории. При сборке зависимость в первую очередь ищется в папках <code>vendor</code> рекурсивно от текущего пакета до <code>$GOPATH/src</code>, после чего ищется уже в <code>$GOPATH/src</code>. Но не смотря на поддержку этой папки во время компиляции, не было никакого официального тулинга для работы с содержимым этой папки. Так появились инструменты, разрабатываемые сообществом.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_а_потом_пришли_модули">А потом пришли модули</h4>
+<div class="paragraph">
+<p>В конце февраля 2018 года один из корневых разработчиков языка Расс Кокс выпустил <a href="https://research.swtch.com/vgo-intro">серию статей</a> и прототип того, что в последствии стало называться go-модули. Начиная с версии языка 1.10 поддержка модулей появилась в наборе команд <code>go mod</code>.</p>
+</div>
+<div class="paragraph">
+<p>Модули позволяют версионировать библиотеки и их зависимости, а также, при необходимости управлять директорией <code>vendor</code>. Для того, чтобы создать модуль, достаточно в любой директории выполнить команду <code>go mod init</code>. После этого в директории появится файл <code>go.mod</code>, в котором будут описываться зависимости текущего модуля. Первой строкой в таком файле указано название модуля. Это название важно в том смысле, что работать с модулем можно за пределами <code>$GOPATH</code>. При разрешении зависимостей, если зависимость начинается с названия модуля, то она будет искаться относительно этого модуля.</p>
+</div>
+<div class="paragraph">
+<p>При выполнении команды <code>go get</code> внутри модуля будет подтянута в кеши последняя версия библиотеки. В качестве версий библиотек используются тэги git-репозитория. При этом используется строгий semver, то есть тэг должен иметь вид</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>v{major:\d+}.{minor:\d+}.{patch:\d+}[-.*]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если в репозитории нет ни одного тэга, подходящего под это определение, то будет взята голова master-ветки. Информация об устанавливаемых версиях будет накапливаться в файле <code>go.mod</code>. При необходимости включения зависимости целиком можно выполнить команду <code>go mod vendor</code>, которая соберёт все зависимости с нужными версиями и скопирует их в директорию <code>vendor</code>.</p>
+</div>
+<div class="paragraph">
+<p>Если две или более зависимости ссылаются на разные версии одной библиотеки, то для минорных версий будет выбрана максимальная из требуемых, а мажорные версии могут работать параллельно, используя суффиксы в импортах <code>v2</code>. Более подробно о разрешении зависимостей и других особенностях поведения модулей можно прочитать в серии статей Расса Кокса.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_публичные_и_приватные_сущности">Публичные и приватные сущности</h3>
+<div class="paragraph">
+<p>Разделение публичных и приватных сущностей в Go сделано очень просто. Если имя сущности начинается с заглавной буквы, то она публичная. Это относится к глобальным переменным, функциям, типам, полям структур и методам. То есть, если вы объявите</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kd">type</span> <span class="tok-nx">User</span> <span class="tok-kd">struct</span> <span class="tok-p">{</span>
+    <span class="tok-nx">ID</span>       <span class="tok-kt">int</span>
+    <span class="tok-nx">Email</span>    <span class="tok-kt">string</span>
+    <span class="tok-nx">password</span> <span class="tok-p">[]</span><span class="tok-kt">byte</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>то для внешних пакетов этот тип будет доступен, а у объектов этого типа будут доступны поля <code>ID</code> и <code>Email</code>, поле <code>password</code> будет приватным.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_циклические_зависимости">Циклические зависимости</h3>
+<div class="paragraph">
+<p>Одной из частых проблем, с которой можно столкнуться при разработке на Go — циклические зависимости. То есть пакет A импортирует пакет B, который импортирует пакет C, импортирующий в свою очередь пакет A. Циклы могут быть разной длинны, сути это не меняет. Компилятор не может разрешить такой граф и соответственно скомпилироать код. Для разрешения таких зависимостей чаще всего приходится пересматривать архитектуру проекта, используя такие подходы как чистая архитектура, предложенная Робертом Мартином или восьмиугольную, луковую, любую другую позволяющую разделить абстракции. Взаимодействие же между уровнями абстракции строить на стандартных типах или на общих чистых сущностях (моделях), а также прибегая к интерфейсам. Один из вариантов организации проекта предложен в статье «Чистая архитектура на Go»<a href="#cag">[cag]</a>. С другой стороны при использовании интерфейсов циклическая зависимость может возникнуть в тестах. Для разрешения таких зависимостей можно вынести тесты в отдельный модуль.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_тесты_в_отдельном_пакете">Тесты в отдельном пакете</h3>
+<div class="paragraph">
+<p>Для тестов допустимо использовать имя пакета с добавлением суффикса <code>_test</code>, не перемещая их файлы в другую директорию. Это оказывается удобным для написания функциональных тестов по типу чёрного ящика. Тесты своего рода оказываются во внешнем пакете, поэтому в них доступны только публичные свойства и методы. Дополнительным плюсом оказывается, что примеры (функции <code>Example&#8230;&#8203;</code> из тестовых файлов) будут более приближены к реальному использованию:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="go"><span></span><span class="tok-kn">package</span> <span class="tok-nx">sort_test</span>
 
+<span class="tok-kn">import</span> <span class="tok-p">(</span>
+    <span class="tok-s">&quot;fmt&quot;</span>
+
+    <span class="tok-s">&quot;github.com/superSorter/sort&quot;</span>
+<span class="tok-p">)</span>
+
+<span class="tok-kd">func</span> <span class="tok-nx">ExampleFlashSort</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+    <span class="tok-nx">a</span> <span class="tok-o">:=</span> <span class="tok-p">[]</span><span class="tok-kt">int</span><span class="tok-p">{</span><span class="tok-mi">12</span><span class="tok-p">,</span> <span class="tok-mi">22</span><span class="tok-p">,</span> <span class="tok-mi">11</span><span class="tok-p">,</span> <span class="tok-mi">0</span><span class="tok-p">,</span> <span class="tok-mi">9</span><span class="tok-p">}</span>
+    <span class="tok-nx">sort</span><span class="tok-p">.</span><span class="tok-nx">FlashSort</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+    <span class="tok-nx">fmt</span><span class="tok-p">.</span><span class="tok-nx">Println</span><span class="tok-p">(</span><span class="tok-nx">a</span><span class="tok-p">)</span>
+    <span class="tok-c1">// Output: [0 9 11 12 22]</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_соглашения">Соглашения</h3>
 <div class="paragraph">
-<p>internal, vendor, cmd, lib, x</p>
+<p>В сообществе сложилось несколько правил к именованию директорий и пакетов.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_задача_развязать_циклические_зависимости">Задача: развязать циклические зависимости</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_стандартные_и_экспериментальные_пакеты">Стандартные и экспериментальные пакеты</h3>
-
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_конкурентное_программирование">Конкурентное программирование</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_go_рутины">Go-рутины</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_конкурентный_доступ_к_памяти">Конкурентный доступ к памяти</h3>
 <div class="paragraph">
-<p>atomic, mutex, Map</p>
+<p>Первое правило поддерживается компилятором и тулингом. Пакеты располагаемые внутри директории <code>internal</code> доступны только в родительском пакете. То есть, если у нас есть такая структура директорий:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>foo/
+  bar/
+  internal/
+    baz/
+qux/</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_csp_communicating_sequential_processes">CSP (Communicating sequential processes)</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_ожидание_завершения">Ожидание завершения</h3>
 <div class="paragraph">
-<p>WaitGroup, ErrGroup</p>
+<p>то пакет <code>foo/internal/baz</code> можно импортировать в пакетах <code>foo</code> и <code>foo/bar</code>, но нельзя в пакете <code>qux</code>. Это особенно полезно для того, чтобы не смущать такие инструменты как <code>goimports</code>. Если у вас есть 10 сервисов, в каждом из которых есть пакет <code>model</code>, то утилита <code>goimports</code> может подставить импорт из соседнего сервиса вместо того, чтобы использовать модели текущего. Если же пакеты моделей спрятать внутри <code>internal</code>, то вопрос о том откуда импортировать пакет не возникнет.</p>
+</div>
+<div class="paragraph">
+<p>Остальные правила не поддерживаются тулингом или компилятором, однако хорошо закрепились в правилах хорошего тона. Для точек входа (пакетов <code>main</code>) использовать подкатологи <code>cmd</code>. Часто возникает необходимость уметь собирать из одного кода несколько артефактов, например, сервис и терминальный клиент к сервису или утилиту для миграций. Тогда структура проекта может выглядеть примерно так</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>module/
+  cmd/
+    service/main.go
+    client/main.go
+    migrate/main.go
+  internal/
+    ...
+  go.mod</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_прерывание_пула_go_рутин">Прерывание пула go-рутин</h3>
-<div class="sect3">
-<h4 id="_context">Context</h4>
-
+<div class="paragraph">
+<p>При разработке библиотеки иногда возникает необходимость вводить экспериментальные функции, которые работают нестабильно или их интерфейс может измениться. Такие функции принято выносить в пакет <code>x</code> или его подпакеты. Ярким примером такого подхода является стандартная библиотека Go. Так для стандартного пакета <code>net</code> есть пакет экспериментальных функций <code>golang.org/x/net</code>.</p>
 </div>
 </div>
 </div>
@@ -3886,6 +4057,11 @@ Clear is better than clever.
 Учебный курс (видеолекции). — М.: Яндекс, 2012.
 <a href="https://yandexdataschool.ru/edu-process/courses/algorithms" class="bare">https://yandexdataschool.ru/edu-process/courses/algorithms</a></p>
 </li>
+<li>
+<p><a id="cag"></a>[cag] Евгений Бастрыков. <em>Чистая архитектура на Go.</em>
+Статья в блоге. — 2018.
+<a href="https://vporoshok.me/post/2018/04/clean-architect/" class="bare">https://vporoshok.me/post/2018/04/clean-architect/</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -3894,7 +4070,7 @@ Clear is better than clever.
 <div id="footer">
 <div id="footer-text">
 Version 0.1.0<br>
-Last updated 2020-02-12 16:20:47 +0400
+Last updated 2020-02-19 17:18:05 +0400
 </div>
 </div>
 <style>
