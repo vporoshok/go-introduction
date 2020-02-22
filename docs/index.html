@@ -437,16 +437,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Введение в язык программирования Go</h1>
 <div class="details">
 <span id="author" class="author">Бастрыков Евгений</span><br>
 <span id="email" class="email"><a href="mailto:vporoshok@gmail.com">vporoshok@gmail.com</a></span><br>
-<span id="revnumber">version 0.1.0,</span>
-<span id="revdate">2020-01-31</span>
+<span id="revnumber">version 0.2.0,</span>
+<span id="revdate">2020-02-22</span>
 </div>
-<div id="toc" class="toc">
+<div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_базовый_синтаксис">Базовый синтаксис</a>
@@ -494,6 +494,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_циклические_зависимости">Циклические зависимости</a></li>
 <li><a href="#_тесты_в_отдельном_пакете">Тесты в отдельном пакете</a></li>
 <li><a href="#_соглашения">Соглашения</a></li>
+</ul>
+</li>
+<li><a href="#_конкурентное_программирование">Конкурентное программирование</a>
+<ul class="sectlevel2">
+<li><a href="#_go_рутины">Go-рутины</a></li>
+<li><a href="#_конкурентный_доступ_к_памяти">Конкурентный доступ к памяти</a></li>
+<li><a href="#_csp_communicating_sequential_processes">CSP (Communicating sequential processes)</a></li>
+<li><a href="#_ожидание_завершения">Ожидание завершения</a></li>
+<li><a href="#_прерывание_пула_go_рутин">Прерывание пула go-рутин</a></li>
 </ul>
 </li>
 <li><a href="#_дополнительно">Дополнительно</a>
@@ -1858,7 +1867,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Переменные такого типа не будут занимать память для данных, но сохранят привязку к типу. Это может пригодиться, например, для построения множеств с помощью <a href="#_хеш_таблицы">хеш-таблиц</a> или как приватный ключ для данных в <a href="#Context">контексте</a>.</p>
+<p>Переменные такого типа не будут занимать память для данных, но сохранят привязку к типу. Это может пригодиться, например, для построения множеств с помощью <a href="#_хеш_таблицы">хеш-таблиц</a> или как приватный ключ для данных в <a href="#_context">контексте</a>.</p>
 </div>
 </div>
 </div>
@@ -3980,6 +3989,49 @@ qux/</pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_конкурентное_программирование">Конкурентное программирование</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+Concurrency is not parallelism.
+</blockquote>
+<div class="attribution">
+&#8212; Rob Pike
+</div>
+</div>
+<div class="paragraph">
+<p>Наибольшую популярность язык Go получил благодаря встроенной возможности работы с зелёными потоками, так называемым go-рутинам.</p>
+</div>
+<div class="sect2">
+<h3 id="_go_рутины">Go-рутины</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_конкурентный_доступ_к_памяти">Конкурентный доступ к памяти</h3>
+<div class="paragraph">
+<p>atomic, mutex, Map</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_csp_communicating_sequential_processes">CSP (Communicating sequential processes)</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_ожидание_завершения">Ожидание завершения</h3>
+<div class="paragraph">
+<p>WaitGroup, ErrGroup</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_прерывание_пула_go_рутин">Прерывание пула go-рутин</h3>
+<div class="sect3">
+<h4 id="_context">Context</h4>
+
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_дополнительно">Дополнительно</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -4069,8 +4121,8 @@ qux/</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.1.0<br>
-Last updated 2020-02-19 17:18:05 +0400
+Version 0.2.0<br>
+Last updated 2020-02-22 13:30:01 +0400
 </div>
 </div>
 <style>
